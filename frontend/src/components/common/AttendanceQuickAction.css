@@ -1,0 +1,244 @@
+.attendance-quick-action-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.attendance-quick-action-wrap--compact {
+  gap: 16px;
+}
+
+.attendance-quick-action-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 2px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.attendance-quick-action-meta__time {
+  font-size: var(--text-xs);
+}
+
+.attendance-quick-action-meta__worked {
+  color: var(--color-text-strong);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.attendance-quick-action {
+  min-width: 124px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.attendance-quick-action:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.attendance-quick-action--compact {
+  min-height: 38px;
+  min-width: 108px;
+  padding: 8px 12px;
+  font-size: var(--text-sm);
+  align-self: center;
+}
+
+.attendance-quick-action--check-in,
+.attendance-quick-action--check-out {
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-quick-action--check-in {
+  background: linear-gradient(180deg, #22c55e, #16a34a);
+  border-color: #15803d;
+}
+
+.attendance-quick-action--check-out {
+  background: linear-gradient(180deg, #ef4444, #dc2626);
+  border-color: #b91c1c;
+}
+
+.attendance-quick-action--overtime-in,
+.attendance-quick-action--overtime-out {
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-quick-action--overtime-in {
+  background: linear-gradient(180deg, #8b5cf6, #7c3aed);
+  border-color: #6d28d9;
+}
+
+.attendance-quick-action--overtime-out {
+  background: linear-gradient(180deg, #ec4899, #db2777);
+  border-color: #be185d;
+}
+
+.attendance-quick-action--check-in:hover:not(:disabled),
+.attendance-quick-action--check-out:hover:not(:disabled),
+.attendance-quick-action--overtime-in:hover:not(:disabled),
+.attendance-quick-action--overtime-out:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.attendance-quick-action--completed,
+.attendance-quick-action--leave {
+  background: #fff7ed;
+  color: #b45309;
+}
+
+.attendance-quick-action--completed {
+  background: var(--color-surface-secondary);
+  color: var(--color-accent-strong);
+}
+
+.attendance-quick-action-confirm {
+  margin-top: var(--space-2);
+}
+
+.attendance-quick-action-confirm-button {
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.attendance-quick-action-confirm-button:hover:not(:disabled) {
+  background: #b91c1c;
+  box-shadow: 0 8px 16px rgba(220, 38, 38, 0.25);
+  transform: translateY(-1px);
+}
+
+
+.attendance-quick-action-error {
+  flex-basis: 100%;
+  margin: 0;
+  color: #b42318;
+  font-size: var(--text-xs);
+  white-space: normal;
+}
+
+/* Checkout Modal Enhancements */
+.checkout-modal .stack {
+  gap: var(--space-4);
+}
+
+.checkout-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.checkout-choice-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: white;
+  border: 2px solid var(--color-border-default);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  user-select: none;
+}
+
+.checkout-choice-card:hover {
+  border-color: var(--color-accent-soft);
+  background: var(--color-surface-hover);
+}
+
+.checkout-choice-card.active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.choice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.choice-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-strong);
+}
+
+.choice-desc {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.support-metrics-section {
+  background: var(--color-surface-hover);
+  border: 1.5px solid var(--color-border-default);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.metrics-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.outlook-ids-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.outlook-id-input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.outlook-id-input-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.checkout-modal input, 
+.checkout-modal textarea {
+  background: white !important;
+  border: 1.5px solid var(--color-border-default) !important;
+  border-radius: 8px !important;
+  padding: 10px 12px !important;
+  font-size: 14px !important;
+  transition: border-color 0.2s !important;
+}
+
+.checkout-modal input:focus, 
+.checkout-modal textarea:focus {
+  border-color: var(--color-accent) !important;
+  outline: none;
+}

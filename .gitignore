@@ -1,0 +1,69 @@
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+dist/
+backend/dist/
+frontend/dist/
+coverage/
+
+# Environment files
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+backend/.env.*
+frontend/.env
+frontend/.env.*
+!.env.example
+!.env.production.template
+!backend/.env.example
+!frontend/.env.example
+
+# Runtime uploads and generated assets
+backend/uploads/
+backend/generated/
+Hostinger/
+
+# Build caches
+frontend/.vite/
+frontend/node_modules/.vite/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS / editor noise
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Google Cloud Service Account Credentials
+*credentials.json
+
+# Database backups and temporary scratch files
+backend/db_backup.json
+backend/db_backup.sql
+backend/scratch/
+backend/src/scratch/
+backend/scripts/get_pr_checks_status.js
+
+# Portable .NET SDK
+dotnet-sdk/
+dotnet-install.ps1
+

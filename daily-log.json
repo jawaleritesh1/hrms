@@ -1,0 +1,444 @@
+[
+  {
+    "date": "2026-06-20",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-AUTH-003"
+    ],
+    "inProgressTasks": [
+      "TSK-PAY-002"
+    ],
+    "newTasksCreated": [
+      "TSK-PAY-002",
+      "TSK-PAY-003"
+    ],
+    "bugsFixed": [
+      "Fixed token expiration cookie deletion issue",
+      "Fixed route guard redirect delay"
+    ],
+    "blockers": [],
+    "hoursWorked": 8,
+    "dailyProgress": 2,
+    "overallProjectProgress": 85,
+    "remarks": "Successfully implemented and tested Refresh Token Rotation in staging environment. Session cookies are secure and HTTP-only."
+  },
+  {
+    "date": "2026-06-21",
+    "developer": "Fullstack Team",
+    "completedTasks": [],
+    "inProgressTasks": [
+      "TSK-PAY-002",
+      "TSK-PAY-003"
+    ],
+    "newTasksCreated": [],
+    "bugsFixed": [],
+    "blockers": [],
+    "hoursWorked": 8,
+    "dailyProgress": 1,
+    "overallProjectProgress": 86,
+    "remarks": "Progressed on incentives database schemas and controller logic. Drafted overtime logging screens."
+  },
+  {
+    "date": "2026-06-22",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-PAY-002"
+    ],
+    "inProgressTasks": [
+      "TSK-PAY-003"
+    ],
+    "newTasksCreated": [
+      "TSK-GOOG-001"
+    ],
+    "bugsFixed": [
+      "Fixed overtime calculation rounding issue"
+    ],
+    "blockers": [],
+    "hoursWorked": 8,
+    "dailyProgress": 2,
+    "overallProjectProgress": 88,
+    "remarks": "Overtime logging is complete. Managers can now verify hours which feed directly into draft payroll records."
+  },
+  {
+    "date": "2026-06-23",
+    "developer": "Integrations & Fullstack Team",
+    "completedTasks": [
+      "TSK-GOOG-001"
+    ],
+    "inProgressTasks": [
+      "TSK-GOOG-002",
+      "TSK-PAY-004"
+    ],
+    "newTasksCreated": [
+      "TSK-GOOG-002",
+      "TSK-PAY-004"
+    ],
+    "bugsFixed": [],
+    "blockers": [],
+    "hoursWorked": 8,
+    "dailyProgress": 2,
+    "overallProjectProgress": 90,
+    "remarks": "Standard corporate Google OAuth handshake is now working. Linked accounts securely store encrypted refresh tokens in DB."
+  },
+  {
+    "date": "2026-06-24",
+    "developer": "Integrations & Fullstack Team",
+    "completedTasks": [
+      "TSK-PAY-003",
+      "TSK-GOOG-002",
+      "TSK-DESK-001",
+      "TSK-ATT-003",
+      "TSK-ATT-004"
+    ],
+    "inProgressTasks": [
+      "TSK-TEAMS-001",
+      "TSK-PAY-004",
+      "TSK-PERF-001"
+    ],
+    "newTasksCreated": [
+      "TSK-TEAMS-001",
+      "TSK-PERF-001",
+      "TSK-PERF-002",
+      "TSK-DESK-001",
+      "TSK-ATT-003",
+      "TSK-ATT-004"
+    ],
+    "bugsFixed": [
+      "Fixed leave balance deduction timing (moved to final HR approval step)",
+      "Fixed Workday Timeline visual layout spacing anomalies, centering vertical line tracking, and aligning typography to match cards design system",
+      "Fixed undefined CSS variables (--color-bg-subtle, --color-text-default, --color-surface) in WorkdayTimeline.css and AttendancePage.css"
+    ],
+    "blockers": [],
+    "hoursWorked": 8,
+    "dailyProgress": 4,
+    "overallProjectProgress": 97,
+    "remarks": "Calendar syncing is functional. Incentives approval is merged. Implemented IntelliHrHub native C# Windows Desktop Agent for telemetry tracking. Completed implementation of live status badges and successfully redesigned the Workday Timeline as a flagship USP feature displaying rich activity segments and event logs. Refined visual layout, spacings, card padding states, and typography alignments for Workday Timeline. Completely eliminated block container elements in Day Summary, replacing them with a boundaryless elegant list layout with dashed and solid line dividers. Integrated a direct 'Download Agent' zip package link directly into the main sidebar for seamless user acquisition."
+  },
+  {
+    "date": "2026-06-25",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-DESK-002",
+      "TSK-DESK-003",
+      "TSK-EMP-004",
+      "TSK-ATT-005"
+    ],
+    "inProgressTasks": [
+      "TSK-PAY-004",
+      "TSK-TEAMS-001",
+      "TSK-PERF-001"
+    ],
+    "newTasksCreated": [
+      "TSK-DESK-002",
+      "TSK-EMP-004",
+      "TSK-ATT-005"
+    ],
+    "bugsFixed": [
+      "Fixed desktop agent active shift and break elapsed timers showing incorrect negative durations due to local time vs UTC timezone mismatch",
+      "Fixed desktop dashboard UI text clipping, label overlapping, and button text truncation on High-DPI displays by optimizing control layout dimensions and enabling PerMonitorV2 high-DPI scaling awareness",
+      "Fixed a classification bug where Hour 14 (2:00 PM to 2:59 PM) was incorrectly grouped into the Lunch break window, causing afternoon breaks to show as Lunch Break / End Lunch instead of Evening Tea / End Tea",
+      "Added specific, context-aware confirmation dialogs to prevent accidental break markings (starting and ending breaks) across the Desktop Dashboard, System Tray menu, and slide-up reminders",
+      "Fixed an issue in the desktop dashboard where the tea break button was named 'Tea Break' by default, refactoring it to dynamically display 'Morning Tea' in the morning hours (before 12 PM) and 'Evening Tea' in the afternoon/evening",
+      "Fixed UI clipping, padding, and spacing discrepancies in both normal and maximized window states of the C# Desktop Agent, increasing the header titlebar height, adding a 25px symmetrical padding/margin to all internal controls, and perfectly aligning window controllers",
+      "Fixed C# Desktop Agent's Telemetry Activity Log signature mismatch causing compiler errors and empty log display on startup/sync",
+      "Enhanced web workday progress timeline with interactive segment hover tooltips showing detailed desktop activity events and their durations",
+      "Fixed Workday Timeline calculation errors displaying wrong overtime and worked duration for past dates with missing checkouts by scope-limiting activeEnd to last activity/checkin and using timezone-aware (Asia/Kolkata) date parsing",
+      "Overhauled the Workday Timeline modal popup UI, expanding the modal width constraint to 760px, refactoring CSS to strip redundant nested cards borders/shadows/backgrounds via flat layout class, and aligning/wrapping header minimal title metadata to prevent label overlapping"
+    ],
+    "blockers": [],
+    "hoursWorked": 8,
+    "dailyProgress": 2,
+    "overallProjectProgress": 99,
+    "remarks": "Successfully implemented and integrated check-in/out and break reminders, dynamic state-aware tray context menus, and custom slide-up notification alert cards. Additionally, developed a fully interactive, visible C# Desktop Dashboard mini-app window featuring a state-aware quick action panel, active workday/break timers, and a live telemetry activity log. Identified and fixed a timezone mismatch bug where the C# desktop agent's active shift/break timers subtracted local time from UTC time, resulting in incorrect negative elapsed times. Also optimized the desktop dashboard layout coordinates, enlarged button dimensions, removed space-heavy emojis from action controls, and configured high-DPI scaling mode (PerMonitorV2) in the project configuration to prevent text clipping and overlapping on high-resolution screens. Resolved the Hour 14 Evening Tea classification bug and added safety confirmation boxes to all break start/end actions across the dashboard, system tray menu, and slide-up reminder popups. Resolved the telemetry activity log signature mismatch to fetch, sort, and display daily telemetry activity events chronologically in the desktop agent list box, and enhanced the web app's progress bar with interactive hover tooltips detailing activity log events and durations. Re-compiled, updated the downloadable ZIP archive, and pushed the updates to the main branch. In addition, implemented the Points Dispute Tickets feature: added the PointsDisputeTicket model and status enum to the database schema, pushed it to sync the database, created the Express API endpoints (post dispute, fetch, resolve dispute with safe database transactions for points reversal and logs), added the inline dispute submission interface to the Leaderboard points history modal, and built a dedicated HR disputes queue tab for reviewing, approving, and rejecting disputes. Lastly, corrected the Workday Timeline calculation timezone bugs, fixed overtime calculations for past missing checkout entries, and expanded the modal popup layout with a wider flat style to avoid label overlaps."
+  },
+  {
+    "date": "2026-06-26",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-ATT-006",
+      "TSK-ATT-007",
+      "TSK-TEAM-001",
+      "TSK-TASK-001",
+      "TSK-ATT-008",
+      "TSK-ATT-009",
+      "TSK-ATT-010",
+      "TSK-ATT-011",
+      "TSK-ATT-012"
+    ],
+    "inProgressTasks": [
+      "TSK-PAY-004",
+      "TSK-TEAMS-001",
+      "TSK-PERF-001"
+    ],
+    "newTasksCreated": [
+      "TSK-ATT-006",
+      "TSK-ATT-007",
+      "TSK-TEAM-001",
+      "TSK-TASK-001",
+      "TSK-ATT-008",
+      "TSK-ATT-009",
+      "TSK-ATT-010",
+      "TSK-ATT-011",
+      "TSK-ATT-012"
+    ],
+    "bugsFixed": [
+      "Fixed overtime calculation in attendance history table by factoring in late check-in penalty minutes to ensure alignment with dashboard timeline calculations",
+      "Excluded break times from Productive Time (Net Work Time Option B) across checkout, regularization, and daily finalization",
+      "Refactored the automated daily finalization cron job, rescheduling it to 7:00 AM daily and implementing crash-aware logic that uses telemetry logs to distinguish between clean OS shutdown without checkout (marked HALF_DAY as neglect penalty) and unexpected power cuts/system crashes (marked PRESENT without penalty)",
+      "Removed immediate checkout behavior on SHUTDOWN events in the desktop event route to let sessions remain open for reboot recovery",
+      "Fixed the AWAY status bug in the live-status endpoint where web-initiated break sessions (BreakSession records with endTime: null) were ignored, leaving employees marked as ACTIVE instead of AWAY",
+      "Implemented a frontend break-updated event listener in AppProvider to force real-time Navbar and Sidebar status dot updates immediately when users start or end a break"
+    ],
+    "blockers": [],
+    "hoursWorked": 8,
+    "dailyProgress": 6,
+    "overallProjectProgress": 100,
+    "remarks": "Resolved a major overtime calculation bug in the attendance history table by incorporating late check-in penalty minutes. Additionally, implemented Net Worked Minutes (Option B) by subtracting completed break session durations from workedMinutes during checkout, regularization approval, and daily finalization. Refactored the daily finalization scheduler, moving it to 7:00 AM IST and implementing intelligent crash detection: using desktop activity logs, the scheduler marks clean shutdowns without web checkout as HALF_DAY (neglect penalty), but automatically checks out and marks sudden hardware crashes or power cuts as PRESENT (no penalty). Overhauled the frontend WorkdayTimeline summary cards, replacing Events Logged with premium Uptime (since last break/away) and Active Penalties cards. Unified all project contexts under 'The Star Prime' (TSP). Migrated all 48 outlook email identities to the new TSP client inside the PostgreSQL database, successfully preserving all employee email mappings. Cleaned up the obsolete TUT and TEC database client records. Completely redesigned the frontend Team workspace Ongoing Projects and Outlook Emails tabs by removing the obsolete TUT/TEC switcher tabs and showing all lists under TSP. Added dynamic project (magazine and industry) add and delete functionalities directly into the UI with instant state updates and double confirmation boxes. Implemented the Dual-View Task Console for Managers and Team Leads, allowing them to both assign tasks to their team members and receive/complete tasks assigned to them by their superiors. Enabled concurrent dual-fetching of tasks assigned to me and tasks assigned to others, integrated a premium tab switcher globally consistent with the design system, and customized the task cards to dynamically render Assigned by metadata for received tasks. Resolved the AWAY status bug by updating the live-status route to query active break sessions (endTime: null) and correctly classify checked-in employees on break as AWAY. Registered a break-updated global event listener in the frontend AppProvider context to instantly refresh status dots in the Navbar and Sidebar without waiting for the 30-second polling interval. Designed and implemented a comprehensive pre-approval workflow for Paid Overtime. Employees can submit pre-approval requests before 5:00 PM IST on working days by stating their reason in a premium purple-styled modal. Managers, HR, or Admins can approve these requests, transitioning their status to APPROVED. Starting overtime transitions approved sessions to ACTIVE (isPaid: true) while rejected pre-approvals fallback to regular overtime (isPaid: false). Refactored the Attendance History table to render a purple 'Paid' tag next to the overtime hours for all verified paid overtime sessions, ensuring premium visual consistency. Finally, designed and implemented proactive shift-completion warning systems. If an employee attempts to check out of their shift before completing their required working hours (9 hours + any late penalties), they receive a high-visibility, bold red warning card inside the Checkout Modal detailing their shift goals and exact remaining duration. Similarly, if they try to log out of the application session from the topbar, the logout click triggers an alert warning detailing the remaining hours to guarantee compliance. Lastly, designed and implemented a comprehensive dynamic Shift Management system restricted strictly to the ADMIN role. Built a premium React dashboard featuring shift profile cards with timing and grace period metrics, a shift creation/editing form, and a search-and-filter Employee Shift Switcher directory supporting bulk shift assignments. Secured the app layout by rendering the sidebar link only for administrators, and updated backend employee queries to return their active shift. All check-in delays, grace penalties, and overtime required hours automatically recalculate in real-time according to the employee's dynamically assigned shift. In addition, designed and implemented a comprehensive Shift Break Configuration system and Dinner Break provision. Added five database-synced break toggles (hasBreaks, allowMorningTea, allowLunch, allowEveningTea, allowDinner) to the Shift model. Refactored backend break start and end routes to enforce shift-specific break configurations. Toggling breaks off globally blocks employees from starting breaks. When breaks are enabled, starting or ending a break dynamically enforces allowed durations per shift. Also introduced a new 40-minute Dinner Break window (20:00 - 22:00 IST). Restricted Lunch breaks exclusively to morning shifts (start time before 12 PM) and Dinner breaks exclusively to night shifts (start time 12 PM or later) in both the backend APIs and frontend UI. Updated the frontend Shift Management modal with a main toggle and a dynamic sub-checkbox grid that automatically syncs and conditionally renders Lunch or Dinner based on the shift start time. Finally, designed and integrated premium allowed break badges onto the active shift cards. Furthermore, designed and implemented customizable break start and end timings per shift profile. Added 8 break-timing columns (start and end times for all 4 break types) with defaults to the database schema, successfully ran db push, and regenerated the Prisma Client. Updated the backend Zod validator and Express routes to check timing inputs, and refactored the break end handler to parse and evaluate employee breaks dynamically against these custom shift-level windows. Lastly, updated the frontend Shift Management page modal to render inline start/end timing inputs when a break is enabled, and updated the shift cards to display these custom ranges alongside the break badges."
+  },
+  {
+    "date": "2026-06-29",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-ATT-013",
+      "TSK-ATT-014",
+      "TSK-ATT-015"
+    ],
+    "inProgressTasks": [],
+    "newTasksCreated": [
+      "TSK-ATT-013",
+      "TSK-ATT-014",
+      "TSK-ATT-015"
+    ],
+    "bugsFixed": [
+      "Deleted 87 rogue ABSENT attendance records that the pre-June-26 scheduler incorrectly created on Saturdays",
+      "Fixed frontend status-priority logic in EmployeeAttendanceTab",
+      "Fixed dynamic calendar exceptions fetch",
+      "Fixed timezone mismatch bug in EmployeeAttendanceTab and AttendancePage where UTC date strings shift dates by 1 day when parsed in browser local timezone",
+      "Fixed local-to-ISO date serialization shift (date.toISOString()) in unifiedHistory map",
+      "Fixed missing employeeId and token props in multiple WorkdayTimeline instantiations",
+      "Fixed incorrect LATE badge and empty Active Penalties card in WorkdayTimeline for night shift employees",
+      "Overhauled Day Summary list typography, borders, and margins in WorkdayTimeline.css",
+      "Populated shift relation inside employee subqueries for GET /employees/:id, GET /attendance, and GET /me backend routes",
+      "Updated all 33 employees to Day Shift (shiftId: 1)",
+      "Fixed Productive Time calculation in WorkdayTimeline to deduct break sessions and idle/away desktop telemetry logs",
+      "Added elapsed time display next to productive worked time in the WorkdayTimeline header progress label",
+      "Fixed check-in and checkout tooltip arrow offsets on the timeline bar when tooltips are shifted",
+      "Registered the desktop agent as a Windows startup application on launch and confirmed the telemetry session remains logged in across PC restarts",
+      "Fixed desktop agent sleep event tracking bug by implementing an offline-first queuing pattern that guarantees sleep events are written to local disk synchronously before suspend",
+      "Fixed vertical centering and text alignment inside custom time input fields (.time-input-12__field) and standard inputs (.form-control) in the Create Shift Profile modal popup by using flexbox alignment on the container and setting the field heights to auto and line-heights to 1",
+      "Restructured check-in and break late penalty calculations to charge points only (-1 point) without applying extra shift time penalties (0 penalty minutes) for lateness up to 5 minutes",
+      "Added Yesterday shortcut button and View by Month dropdown filters in AttendancePage.tsx (with the Month dropdown styled with a custom absolute-positioned Chevron Down arrow and positioned after Yesterday), allowing users to switch between daily and monthly views seamlessly, and updated the backend express routes to query database records across monthly date ranges",
+      "Modified the Workday Timeline modal popup in AttendancePage.tsx to dynamically display the name of the target employee whose timeline is being viewed inside the modal header title",
+      "Resolved a major bug where selecting a previous date in the Attendance History section caused the Workforce Live Status telemetry timeline button to fetch and display that historical date's logs instead of the current day's telemetry",
+      "Modified the WorkdayTimeline progress bar footer labels to display the employee's actual check-in time on the left (falling back to shift start if not checked in), and the final shift end time including late penalties on the right",
+      "Swapped the normal and hover CSS styles for the topbar action buttons (notifications, profile, and logout) in Navbar.css so that they are raised by default and transition to flat when hovered"
+    ],
+    "blockers": [],
+    "hoursWorked": 18,
+    "dailyProgress": 2,
+    "overallProjectProgress": 100,
+    "remarks": "Investigated and fixed the root cause of Saturdays showing as Absent on the employee profile attendance history page. Refactored the frontend status resolution hierarchy in EmployeeAttendanceTab to ensure OFF days and LEAVE always override rogue ABSENT records. Lifted the selectedMonth and selectedYear state to EmployeeProfilePage so that calendar exceptions are re-fetched dynamically on month/year change. Resolved a timezone shift bug where UTC attendanceDate strings returned by the backend shifted by one day when parsed locally in the browser, causing today's check-in to display on yesterday's profile row. Also fixed date.toISOString() serialization inside unifiedHistory mapping which converted the local midnight date to UTC (shifting it back by one day). Resolved a bug where several instantiations of the WorkdayTimeline component were missing the employeeId and token props, which prevented it from fetching desktop logs. Resolved a bug where the timeline defaulted to 9:00 AM - 6:00 PM shift settings for all users. Fixed by including the shift relation in the backend API query and passing down shift timings/grace period props to correctly calculate bounds and late thresholds. Set all 33 employees to the Day Shift in the database and recalculated late status and penalties for all today's records. Updated the Day Summary grid list style in WorkdayTimeline.css. Refactored worked minutes to dynamically calculate true productive minutes by subtracting breaks and idle/locked segments. Added an elapsed time counter next to the worked label in the timeline header. Resolved check-in/checkout tag arrow alignment issues when tooltips are horizontally shifted due to viewport constraints by introducing dynamic CSS custom properties. Implemented Windows registry injection to ensure the desktop telemetry client runs silently on system boot, while retaining manual disconnect/exit options per user preference and verifying that the authentication token correctly persists locally so the application does not automatically log out upon restart. Also resolved the sleep event tracking bug where PC suspend interrupted the network call by refactoring the desktop logger to write sleep/wake events to disk synchronously first before attempting background uploads, ensuring offline safety during suspends. Fixed layout alignment bugs inside the Create/Edit Shift Profile modal where custom and standard time inputs were not vertically centered by refactoring the time input container to use flex vertical centering and setting input heights to auto and line-heights to 1. Updated both shift check-in and break end routes to enforce no grace period (any lateness is tracked), applying only a points deduction (-1 point) and zero extended shift time (0 penalty minutes) for lateness up to 5 minutes, with full time penalties starting at 6+ minutes. Additionally, restyled the topbar elements in Navbar.css to a monochrome theme with 12px container font size, round buttons, and darker required duration label. Added dynamic click-to-view points history log list in Navbar.tsx. Prevented background scrolling while any modal popup is open in Modal.tsx. Aligned points history modal font sizes to 12px. Combined the Previous Winner and Current Leaderboard panels into a single, cohesive parent hero card on the Leaderboard page with a nested card layout styling. Updated the leaderboard ranking row avatars to display the employee's uploaded profile image matching the profile page, or render initials using a dynamic Android-like background color uniquely mapped to each employee id. Implemented a prominent purple highlight line and 'You' pill badge on the logged-in employee's ranking row. Added a gamified 'Your Standing' summary bar above each of the three ranking lists, displaying the user's current rank standing, relative percentile tier, and the distance in points or hours required to overtake the rank directly above them. Implemented Yesterday and View by Month shortcuts (ordered: Date Picker, Yesterday button, Month dropdown styled with a custom Chevron Down arrow) on the Attendance page filters, with corresponding backend query-builder updates to support filtering employee history by monthly ranges. Updated the Workday Timeline modal header title to dynamically print the name of the target employee being viewed. Resolved a major telemetry date linkage bug where selecting a previous date in the Attendance History section caused the Workforce Live Status timeline button to fetch and display that historical date's logs; fixed by refactoring the timeline click handler to asynchronously fetch the target employee's actual today's record directly from the backend, and decoupled the timeline button disabled state from the historical attendance list. Updated the WorkdayTimeline progress bar footer labels to show the employee's actual check-in time on the left, and the final shift end time (adding any late penalty minutes to the standard shift end time) on the right. Finally, swapped the normal and hover CSS state properties of the topbar buttons (notifications, profile, and logout) in Navbar.css so they are raised by default and become flat on hover."
+  },
+  {
+    "date": "2026-06-30",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-DEPT-001",
+      "TSK-LDB-002",
+      "TSK-ATT-016",
+      "TSK-EMP-005",
+      "TSK-NAV-004",
+      "TSK-INC-001",
+      "TSK-DSK-002",
+      "TSK-DSK-003"
+    ],
+    "inProgressTasks": [],
+    "newTasksCreated": [
+      "TSK-DEPT-001",
+      "TSK-LDB-002",
+      "TSK-ATT-016",
+      "TSK-EMP-005",
+      "TSK-NAV-004",
+      "TSK-INC-001",
+      "TSK-DSK-002",
+      "TSK-DSK-003"
+    ],
+    "bugsFixed": [
+      "Fixed all departments showing 0 count of employees on the remote server by committing and pushing the backend query updates",
+      "Fixed sky blue buttons by converting Add Department and Add Employee buttons to the dark blue accent gradient theme",
+      "Refined previous winner card layout to be a square block taking exactly half of the parent's height, with responsive overrides unsetting the aspect ratio on mobile",
+      "Fixed vertical and horizontal alignment of Workday Progress header elements, centering the title and grouping the status dot/badge on the left",
+      "Fixed a bug where a user who is not checked in was shown as ACTIVE with a pulsing green dot by implementing Not Checked In status logic and a gray offline dot",
+      "Fixed low contrast on leave page secondary buttons by using var(--color-text-strong) and a semi-transparent adaptive overlay",
+      "Fixed mobile sidebar menu clickability by increasing the sidebar's z-index to 1810 so it sits in front of the backdrop overlay",
+      "Fixed incentives page button styling by converting primary and secondary buttons to the premium dark blue gradient and outline themes",
+      "Fixed desktop agent reminders to trigger dynamically by fetching employee shift details from the backend",
+      "Fixed duplicate break reminders on the desktop agent by matching taken breaks against the shift's break windows",
+      "Fixed missing checkout status update in the desktop agent by implementing a custom dark-themed input dialog",
+      "Fixed missing early checkout warnings in the desktop agent by validating worked hours against shift required hours and penalties",
+      "Resized the desktop reminder popup to double size (880x480), centered it on screen, and replaced the slide-up animation with a centered topmost fade-in/fade-out animation"
+    ],
+    "blockers": [],
+    "hoursWorked": 23,
+    "dailyProgress": 8,
+    "overallProjectProgress": 100,
+    "remarks": "Successfully redesigned the Departments page to display a grid of premium cards. The backend query was updated to fetch the active employee count in each department via Prisma relations, and the frontend renders modern gradient avatars, pill-shaped code badges, and hover lift effects. Also refined the Leaderboard page: resized the Previous Winner card to be a square block taking half the parent's height, replaced the trophy emoji with an animated party popper, and changed the employee list ranking avatars to use the same 6 premium linear gradients. Lastly, unified the button styling across the app by transforming the Add Department, Add Employee, Create Record, View Team Calendar, View Leave Balances, Apply for Leave, Create Incentive, Apply Filters, and Cancel buttons to use the dark blue accent gradient and outline themes. Restructured the Workday Progress header to center the title horizontally while keeping the status dot and badge side-by-side on the left. Correctly handled the not-checked-in state by showing a Not Checked In status label, a gray dot, and a centered placeholder text overlay inside the progress bar rail. Created a seeding script to add test1@gmail.com and test2@gmail.com test employee accounts with default profiles and leave balances. Fixed mobile sidebar clickability, added a confirmation box before downloading the desktop agent, and added a conditional 'Back to Leaves' button on the Calendar page. Integrated dynamic shift-based reminders, early checkout validation and warnings, and a checkout status update dialog in the C# desktop agent, and redesigned the reminder popup to be twice as large, centered on screen, and topmost with a fade-in animation."
+  },
+  {
+    "date": "2026-07-01",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-ATT-017",
+      "TSK-ATT-018",
+      "TSK-DSK-004",
+      "TSK-DSK-005"
+    ],
+    "inProgressTasks": [],
+    "newTasksCreated": [
+      "TSK-ATT-017",
+      "TSK-ATT-018",
+      "TSK-DSK-004",
+      "TSK-DSK-005"
+    ],
+    "bugsFixed": [
+      "Fixed monthly attendance history dropdown filter showing up in Manager, HR, and Admin views by wrapping it in an employee-only role check",
+      "Fixed brown status dot showing up for checked-in late employees by forcing active class (green dot) for all checked-in states",
+      "Fixed C# desktop agent sleep and shutdown event truncation by implementing synchronous blocking handlers and a 3-second fail-fast request timeout",
+      "Implemented live desktop agent connection tracking using lastDesktopActive database column and user-agent detection, displaying a laptop icon (💻) next to active user names in the Workforce Live Status telemetry table",
+      "Fixed desktop agent event sync failure caused by PascalCase vs. camelCase naming mismatch on eventType and timestamp between C# and Express Zod validation"
+    ],
+    "blockers": [],
+    "hoursWorked": 9,
+    "dailyProgress": 4,
+    "overallProjectProgress": 100,
+    "remarks": "Restricted the View by Month dropdown select box on the Attendance History tab to the Employee panel, making it hidden in the other 3 administrative panels. Refined the Workday Progress header status tags: renamed the 'Present' tag to 'Active' for on-time checked-in employees, and ensured late check-ins use a green pulsing dot to indicate active shift presence. Fully resolved the C# desktop agent telemetry capture bugs for sleep, wake, and shutdown events using native OS power mode listeners, synchronous blocking handlers, and network state auto-sync. Built and integrated a live desktop connectivity indicator (💻) in the Workforce Live status table on the admin page. Resolved capitalization mismatch on event logs to support seamless, backwards-compatible local event sync."
+  },
+  {
+    "date": "2026-07-01",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-ATT-019",
+      "TSK-DSH-002",
+      "TSK-DSH-003",
+      "TSK-DSH-004",
+      "TSK-DSH-005",
+      "TSK-DSH-006",
+      "TSK-ATT-021",
+      "TSK-ATT-022",
+      "TSK-ATT-023",
+      "TSK-ATT-024",
+      "TSK-ATT-025",
+      "TSK-ATT-026"
+    ],
+    "inProgressTasks": [],
+    "newTasksCreated": [
+      "TSK-ATT-019",
+      "TSK-DSH-002",
+      "TSK-DSH-003",
+      "TSK-DSH-004",
+      "TSK-DSH-005",
+      "TSK-DSH-006",
+      "TSK-ATT-021",
+      "TSK-ATT-022",
+      "TSK-ATT-023",
+      "TSK-ATT-024",
+      "TSK-ATT-025",
+      "TSK-ATT-026"
+    ],
+    "bugsFixed": [
+      "Fixed silent 401 failure in WorkdayTimeline.tsx loadDesktopLogs: added if (!token) return guard so unauthenticated requests no longer fire and swallow errors silently",
+      "Fixed white flash on hero section: separated .dashboard-hero background-color (#0f172a) from background-image so the browser has a solid dark fallback before compositing bgh2.jpg",
+      "Fixed desktop activity timeline data mapping: updated /desktop-event to parse the attendance Date from the event's actual timestamp instead of hardcoding today's date, resolving corrupt replayed offline logs",
+      "Fixed Workday Timeline Event Log clutter: filtered out redundant desktop logs (e.g. Screen Locked, Went Idle) that occur within 60s of a corresponding Break Session, and hid transient break sessions lasting less than 1 minute",
+      "Smart break classification: refactored WorkdayTimeline.tsx to show locks/idle times as actual tea/lunch breaks only if they fall within official scheduled break hours or were manually triggered; otherwise they are cleanly represented by their raw desktop activity events (e.g., Screen Locked, Went Idle)",
+      "Fixed C# desktop agent break reminder popups triggering too early: updated trigger condition in Program.cs to use actual scheduled target times (10:45 AM, 1:00 PM, 4:10 PM) matching the notification texts",
+      "Fixed live status query leaking historical activity logs: added gte today filter condition to lastLog selection in GET /api/attendance/live-status endpoint, preventing old events from misrepresenting active status"
+    ],
+    "blockers": [],
+    "hoursWorked": 12,
+    "dailyProgress": 12,
+    "overallProjectProgress": 100,
+    "remarks": "Completed bug fixes and dashboard features: (1) Added token guard to WorkdayTimeline.tsx. (2) Eliminated hero section white flash on .dashboard-hero. (3) Added dynamic relatable thoughts pools. (4) Redesigned hero layouts. (5) Fixed the desktop offline sync date mapping logic. (6) Filtered out duplicate/redundant timeline log items. (7) Classified locks/idle times as breaks only during scheduled hours. (8) Aligned desktop reminder triggers. (9) Published and packaged the self-contained Release build. (10) Added a current-date filter to /live-status desktop logs check to prevent stale historical events from showing up as active status details."
+  },
+  {
+    "date": "2026-07-02",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-ATT-027",
+      "TSK-ATT-028",
+      "TSK-ATT-029",
+      "TSK-ATT-030"
+    ],
+    "inProgressTasks": [],
+    "newTasksCreated": [
+      "TSK-ATT-027",
+      "TSK-ATT-028",
+      "TSK-ATT-029",
+      "TSK-ATT-030"
+    ],
+    "bugsFixed": [
+      "Fixed C# desktop agent break naming and redundancy: implemented scheduled hours check (GetScheduledBreakInfo) and desktop log filtering in DashboardForm.cs, aligning the desktop log list formatting with the web dashboard.",
+      "Fixed C# desktop client unresponsiveness/freezes during checkout from popup: added CancellationTokenSource with 30s timeout and disabled controls during active call.",
+      "Fixed C# desktop agent startup failure after laptop reboot: wrapped Application.ExecutablePath in quotes inside startup registry entry to support directory spaces, and added write verification check.",
+      "Fixed blank screen/missing data in C# agent on startup: implemented 3-attempt data retrieval retry loop with 5s delay.",
+      "Implemented silent token re-authentication in C# agent using secure DPAPI-encrypted local password storage, resolving frequent token expiration login prompts.",
+      "Fixed desktop agent auto-polling not updating the dashboard state while hidden in tray.",
+      "Filtered out idle segments and events under 10 minutes from both visual timelines and event logs.",
+      "Fixed desktop agent UI layout bugs on high-DPI laptops and maximized screen states: increased the left panel actions ratio to 48% (expanding quick action buttons to 145px width to eliminate text truncation), added taller label heights to handle vertical scaling, dynamically bounded the footer account email label, and centered layout buttons vertically when maximized instead of pushing them off-screen.",
+      "Added support for custom branding icon: updated C# agent forms and tray icon to load dynamically from the application's embedded icon resource.",
+      "Deduplicated consecutive identical desktop logs occurring within 60 seconds of each other in the WorkdayTimeline event log to prevent layout clutter.",
+      "Fixed Yash showing as AWAY on live status by ignoring raw desktop logs recorded prior to the employee's check-in timestamp.",
+      "Fixed manual check-in employees showing as OFFLINE on live status by removing the offline agent status force-override."
+    ],
+    "blockers": [],
+    "hoursWorked": 8,
+    "dailyProgress": 8,
+    "overallProjectProgress": 100,
+    "remarks": "Aligned desktop log console formatting with web dashboard. Refactored /break/end backend route and workday timeline visuals to support wide flexible break ranges, duration thresholds, and direct 1-to-1 penalty calculations. Implemented 6 critical C# desktop client fixes: resolved UI freezing via checkout timeout, quoted startup registry path, added startup fetch retries, enabled secure DPAPI password persistence for silent re-login, enforced dashboard polls while hidden, filtered out idle logs < 10 minutes, resolved high-DPI layout clipping, and added dynamic custom branding icon support."
+  },
+  {
+    "date": "2026-07-03",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-ATT-029"
+    ],
+    "inProgressTasks": [],
+    "newTasksCreated": [
+      "TSK-ATT-029"
+    ],
+    "bugsFixed": [
+      "Resolved a permission issue where the background Google Sheets sync failed to create July 2026 spreadsheets automatically due to Google Drive API restrictions on Service Accounts, leaving sync tasks stuck in FAILED status.",
+      "Implemented a backend endpoint /api/attendance/export to generate styled monthly attendance reports in Excel format dynamically in-memory.",
+      "Added month selection and a Download Report button to the HR/Admin attendance page header, allowing direct local download of attendance spreadsheets.",
+      "Completely disabled background Google Sheets sync in code using environment variables to stop cron processing and sync queue insertions.",
+      "Updated production docker-compose.prod.yml and environment templates to propagate the DISABLE_GOOGLE_SHEETS_SYNC variable to the backend container."
+    ],
+    "blockers": [],
+    "hoursWorked": 4,
+    "dailyProgress": 4,
+    "overallProjectProgress": 100,
+    "remarks": "Created database diagnostic and queue reset utilities to manage failed Google Sheets sync tasks. Extended backfill range up to July 31. Implemented styled monthly offline Excel attendance sheet export in the Express backend, and added interactive download controls to the frontend HR panel. Disabled background Google Sheets queueing and worker sync loops via .env flag, and updated the Docker compose configuration to pass the environment setting to production."
+  },
+  {
+    "date": "2026-07-06",
+    "developer": "Fullstack Team",
+    "completedTasks": [
+      "TSK-ATT-031",
+      "TSK-ATT-032"
+    ],
+    "inProgressTasks": [],
+    "newTasksCreated": [
+      "TSK-ATT-031",
+      "TSK-ATT-032"
+    ],
+    "bugsFixed": [
+      "Resolved a layout rendering bug where a mysterious horizontal white strip appeared across the middle of the dashboard's hero section card. The card base styling (.card) applied a semi-transparent white background and backdrop-filter, which bled through when individual background properties were overridden. Fixed this by applying a clean background shorthand with !important and setting backdrop-filter to none.",
+      "Resolved a boot-time auto-start bug in the C# desktop agent where transient network connectivity drops triggered premature password credential login prompts. Modified it to remain silent in system tray and retry automatically once connection state changes."
+    ],
+    "blockers": [],
+    "hoursWorked": 2,
+    "dailyProgress": 2,
+    "overallProjectProgress": 100,
+    "remarks": "Successfully resolved the dashboard hero section layout rendering bug by completely overriding the .card background shorthand and disabling backdrop-filters on .dashboard-hero. Fixed C# desktop agent auto-start boot network drop resilience to suppress login prompts on slow startup connection."
+  }
+]

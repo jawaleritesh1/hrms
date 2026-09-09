@@ -1,0 +1,81 @@
+version: "3.8"
+
+services:
+  postgres-db:
+    image: postgres:17-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME:-intellihrhub_db}
+      POSTGRES_USER: ${DB_USER:-intellihrhub_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: postgres://${DB_USER:-intellihrhub_user}:${DB_PASSWORD}@postgres-db:5432/${DB_NAME:-intellihrhub_db}?connection_limit=10&pool_timeout=20
+      JWT_SECRET: ${JWT_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      GOOGLE_REDIRECT_URL: ${GOOGLE_REDIRECT_URL}
+      GOOGLE_CHAT_WEBHOOK_URL: ${GOOGLE_CHAT_WEBHOOK_URL}
+      GOOGLE_APPLICATION_CREDENTIALS: /usr/src/app/credentials/google-credentials.json
+      HR_ADMIN_EMAIL: ${HR_ADMIN_EMAIL}
+      VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY}
+      VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY}
+      VAPID_SUBJECT: ${VAPID_SUBJECT}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      FRONTEND_URL: ${FRONTEND_URL}
+      MICROSOFT_TENANT_ID: ${MICROSOFT_TENANT_ID}
+      MICROSOFT_CLIENT_ID: ${MICROSOFT_CLIENT_ID}
+      MICROSOFT_CLIENT_SECRET: ${MICROSOFT_CLIENT_SECRET}
+      MICROSOFT_REDIRECT_URL: ${MICROSOFT_REDIRECT_URL}
+      DISABLE_GOOGLE_SHEETS_SYNC: ${DISABLE_GOOGLE_SHEETS_SYNC:-false}
+    depends_on:
+      - postgres-db
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    volumes:
+      - uploads_data:/usr/src/app/uploads
+      - ./backend/credentials:/usr/src/app/credentials:ro
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      # Map the custom frontend port (8080 matches your old project port) on the host to port 80 inside the container
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      - backend
+    labels:
+      - "traefik.enable=true"
+      # Routes both the domain and www subdomain to this container
+      - "traefik.http.routers.intellihrhub.rule=Host(`${DOMAIN_NAME}`) || Host(`www.${DOMAIN_NAME}`)"
+      - "traefik.http.routers.intellihrhub.entrypoints=websecure"
+      - "traefik.http.routers.intellihrhub.tls=true"
+      # Uses the existing "letsencrypt" certificate resolver configured on your VPS Traefik
+      - "traefik.http.routers.intellihrhub.tls.certresolver=letsencrypt"
+      - "traefik.http.services.intellihrhub.loadbalancer.server.port=80"
+
+volumes:
+  pgdata:
+    name: intellihrhub_pgdata
+  uploads_data:
+    name: intellihrhub_uploads_data

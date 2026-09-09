@@ -1,0 +1,8 @@
+.employee-modal-surface {
+  width: min(100%, 760px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: 28px;
+  padding-bottom: 32px;
+  box-sizing: border-box;
+}

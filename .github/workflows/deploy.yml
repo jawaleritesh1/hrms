@@ -25,6 +25,8 @@ jobs:
           script: |
             if [ -d "/var/www/hrms" ]; then
               cd /var/www/hrms
+              git fetch origin main
+              git reset --hard origin/main
               chmod +x deploy.sh
               ./deploy.sh
             else

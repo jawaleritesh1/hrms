@@ -1,7 +1,5 @@
 import { PrismaClient, RoleName, EmploymentStatus } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { ensureEmployeeLeaveBalances } from "./src/utils/leave-balance.js";
-import { getFinancialYearForDate } from "./src/utils/financial-year.js";
 
 const prisma = new PrismaClient();
 
@@ -95,8 +93,8 @@ const usersToCreate = [
 async function main() {
   console.log("Seeding Sanskar Growth Solutions accounts...");
 
-  const joiningDate = new Date();
-  const financialYear = getFinancialYearForDate(joiningDate);
+  const now = new Date();
+  const year = now.getMonth() >= 3 ? now.getFullYear() : now.getFullYear() - 1;
 
   // Find a default shift
   let shift = await prisma.shift.findFirst({ where: { name: "Day Shift" } });
@@ -104,8 +102,11 @@ async function main() {
     shift = await prisma.shift.findFirst();
   }
 
+  // Get leave types
+  const leaveTypes = await prisma.leaveType.findMany();
+
   for (const u of usersToCreate) {
-    console.log(`\nCreating / Updating: ${u.email} (${u.roleName})...`);
+    console.log(`\nProcessing: ${u.email} (${u.roleName})...`);
 
     // Get Role
     const roleRecord = await prisma.role.findUnique({
@@ -169,7 +170,7 @@ async function main() {
             lastName: u.lastName,
             departmentId: department.id,
             shiftId: shift?.id ?? null,
-            joiningDate,
+            joiningDate: now,
             employmentStatus: EmploymentStatus.ACTIVE,
             isActive: true,
             jobTitle: u.jobTitle,
@@ -197,7 +198,7 @@ async function main() {
             lastName: u.lastName,
             departmentId: department.id,
             shiftId: shift?.id ?? null,
-            joiningDate,
+            joiningDate: now,
             employmentStatus: EmploymentStatus.ACTIVE,
             isActive: true,
             jobTitle: u.jobTitle,
@@ -209,10 +210,31 @@ async function main() {
     }
 
     // Allocate leave balances
-    try {
-      await ensureEmployeeLeaveBalances(prisma, employeeId, financialYear);
-    } catch (err) {
-      console.warn(`Could not ensure leave balances for ${u.email}:`, err);
+    for (const lt of leaveTypes) {
+      try {
+        await prisma.leaveBalance.upsert({
+          where: {
+            employeeId_leaveTypeId_year: {
+              employeeId,
+              leaveTypeId: lt.id,
+              year,
+            },
+          },
+          update: {},
+          create: {
+            employeeId,
+            leaveTypeId: lt.id,
+            year,
+            allocatedDays: lt.defaultDaysPerYear,
+            usedDays: 0,
+            remainingDays: lt.defaultDaysPerYear,
+            visibleDays: lt.defaultDaysPerYear,
+            carryForwardDays: 0,
+          },
+        });
+      } catch (err) {
+        // Continue if already exists
+      }
     }
   }
 

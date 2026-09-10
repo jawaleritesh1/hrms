@@ -2,10 +2,10 @@
 set -e
 
 # Configuration
-PROJECT_DIR="/var/www/intellihrhub"
+PROJECT_DIR="/var/www/hrms"
 BRANCH="main"
 
-echo "=== Starting Deployment for intellihrhub (with Traefik) ==="
+echo "=== Starting Deployment for hrms (with Traefik) ==="
 
 # Navigate to project directory
 cd "$PROJECT_DIR"
@@ -25,7 +25,7 @@ git pull origin "$BRANCH"
 
 # 4. Build and start containers
 echo "Building and starting Docker containers..."
-docker compose -p intellihrhub -f docker-compose.prod.yml up -d --build
+docker compose -p hrms -f docker-compose.prod.yml up -d --build
 
 # 5. Clean up old images to save disk space
 echo "Pruning unused Docker images..."

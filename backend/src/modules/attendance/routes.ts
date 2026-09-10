@@ -309,16 +309,16 @@ router.post("/check-in", validate(attendanceSchema), async (request, response, n
       penaltyMinutes = 0; 
     } else if (lateByMinutes >= 30) {
       penaltyPoints = 10;
-      penaltyMinutes = 60;
+      penaltyMinutes = 0;
     } else if (lateByMinutes >= 15) {
       penaltyPoints = 5;
-      penaltyMinutes = 45;
+      penaltyMinutes = 0;
     } else if (lateByMinutes >= 10) {
       penaltyPoints = 2;
-      penaltyMinutes = 30;
+      penaltyMinutes = 0;
     } else if (lateByMinutes >= 6) {
       penaltyPoints = 1;
-      penaltyMinutes = 20;
+      penaltyMinutes = 0;
     } else if (lateByMinutes > 0) {
       penaltyPoints = 1;
       penaltyMinutes = 0;
@@ -377,7 +377,7 @@ router.post("/check-in", validate(attendanceSchema), async (request, response, n
         await createNotification({
           userId: currentEmployee.userId,
           title: "Late Check-in Penalty",
-          message: `${penaltyPoints} points deducted and ${penaltyMinutes ? penaltyMinutes + 'm extra shift time added' : 'half-day applied'} for late check-in.`,
+          message: `${penaltyPoints} points deducted${isHalfDayPenalty ? ' and half-day applied' : ''} for late check-in.`,
           type: "POINTS_UPDATE",
           link: "/team/leaderboard",
           sendPush: true,

@@ -71,7 +71,7 @@ export default function Sidebar({ sessionUser, navOpen, onNavigate }: SidebarPro
       <div className="stack">
         <div className="sidebar-intro">
           <div className="sidebar-brand">
-            <img src="/assets/images/Logo.png" alt="HRMS" className="sidebar-logo" />
+            <img src="/assets/images/Logo.png?v=2" alt="HRMS" className="sidebar-logo" />
           </div>
           <div className="sidebar-user-card">
             <div className="sidebar-user-name">

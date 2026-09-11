@@ -85,6 +85,35 @@
     "updatedAt": "2026-05-18T18:00:00Z"
   },
   {
+    "taskId": "TSK-AUTH-004",
+    "moduleId": "MOD-AUTH",
+    "sprint": "Sprint 3",
+    "project": "HRMS",
+    "page": "Login Page",
+    "module": "Authentication",
+    "submodule": "Login UI Redesign & SGS Rebranding",
+    "title": "Redesign login page with SGS branding, full-bleed desk scene backdrop, and modern value showcase",
+    "description": "Redesign login page to match SGS brand aesthetics with login-bg.png full-bleed backdrop, value proposition showcase, curved typography flourish, role access capsule, and streamlined work credentials login form.",
+    "frontendWork": "Redesign LoginPage.tsx and LoginPage.css with full-bleed desktop background, topbar logo alignment, gold typography, and custom form controls.",
+    "backendWork": "N/A",
+    "databaseWork": "N/A",
+    "apiWork": "N/A",
+    "testingWork": "Vitest test suite execution and verification of login form submission.",
+    "priority": "HIGH",
+    "estimatedHours": 6,
+    "actualHours": 5,
+    "dependencies": [
+      "TSK-AUTH-002"
+    ],
+    "riskLevel": "LOW",
+    "status": "COMPLETED",
+    "completionPercentage": 100,
+    "owner": "Frontend Team",
+    "expectedOutput": "Modernized, responsive login page aligned with SGS brand guidelines.",
+    "createdAt": "2026-09-11T11:55:00Z",
+    "updatedAt": "2026-09-11T12:17:00Z"
+  },
+  {
     "taskId": "TSK-EMP-001",
     "moduleId": "MOD-EMPLOYEE",
     "sprint": "Sprint 1",

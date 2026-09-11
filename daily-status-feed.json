@@ -348,5 +348,19 @@
     "title": "Implement resilient silent re-authentication on system startup",
     "status": "COMPLETED",
     "narrative": "Resolved a startup auto-login bug in the C# desktop agent application. During boot-time launch, slow local network interface connection speeds caused initial silent token refreshes to fail with network exceptions, prompting the login credentials dialog immediately. Introduced a transient network error flag to run silently in system tray during offline startup, and configured background timers and network change address listeners to trigger silent re-authentication once connection is restored."
+  },
+  {
+    "date": "2026-09-11",
+    "taskId": "TSK-DASH-001",
+    "title": "Redesign Executive Dashboard UI & Make Work Progress Dynamic",
+    "status": "COMPLETED",
+    "narrative": "Overhauled Executive Dashboard UI to match executive design mockup. Built boardroom hero banner with forest green gradient, borderless topbar actions with vertical divider, 5 world clocks layout, 4 stat cards with wave backgrounds and high-contrast SVG action arrows, real-time dynamic work progress calculation with 10s ticker, compact checkin/checkout action button, and an expandable dropdown panel with day summary, break management, and activity log."
+  },
+  {
+    "date": "2026-09-11",
+    "taskId": "TSK-AUTH-004",
+    "title": "Update Login Page & App Branding from Intellisys to SGS",
+    "status": "COMPLETED",
+    "narrative": "Updated login showcase header from Intellisys HRMS to SGS HRMS, added official SGS logo above login card, and updated HTML page title to SGS HRMS."
   }
 ]

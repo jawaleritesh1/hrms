@@ -1,13 +1,11 @@
 import { useApp } from "../../context/AppContext";
+import DashboardHeroBanner from "./DashboardHeroBanner";
 import DashboardHeroClocks from "./DashboardHeroClocks";
-import ThoughtOfTheDay from "./ThoughtOfTheDay";
-import AnnouncementList from "./AnnouncementList";
-import WorkdayTimeline from "./WorkdayTimeline";
+import WorkProgressBar from "./WorkProgressBar";
+import DashboardStatCards from "./DashboardStatCards";
+import TeamOnLeaveWidget from "./TeamOnLeaveWidget";
 import TodoWidget from "./TodoWidget";
-import BirthdayCelebrations from "./BirthdayCelebrations";
-import AssignedTasksWidget from "./AssignedTasksWidget";
-import { addMinutesToTime } from "../../utils/format";
-
+import "./DashboardPage.css";
 
 export default function EmployeeDashboard({ token }: { token: string | null }) {
   const { summary } = useApp();
@@ -16,58 +14,35 @@ export default function EmployeeDashboard({ token }: { token: string | null }) {
   const currentEmployee = summary?.currentEmployee ?? null;
 
   return (
-    <section className="stack">
-      <article className="card dashboard-hero">
-        <div className="dashboard-hero-copy">
-          <div className="dashboard-hero-top-row management-top-row">
-            <div className="dashboard-hero-header dashboard-hero-header--left">
-              <div className="dashboard-hero-greeting-container">
-                <span className="greeting-text">Hi,</span>
-                <span className="greeting-name">
-                  {currentEmployee?.firstName} {currentEmployee?.lastName}
-                </span>
-                {currentEmployee?.jobTitle && (
-                  <span className="dashboard-hero-designation-badge">
-                    {currentEmployee.jobTitle}
-                  </span>
-                )}
-              </div>
-              <div className="dashboard-hero-context-title">
-                <span className="context-eyebrow">Personal Workspace</span>
-                <span className="context-divider">|</span>
-                <span className="context-title">Employee Dashboard</span>
-              </div>
-            </div>
-            <ThoughtOfTheDay jobTitle={currentEmployee?.jobTitle} role="EMPLOYEE" />
-          </div>
-          <AnnouncementList token={token} />
-          <DashboardHeroClocks />
-        </div>
-      </article>
-
-      <WorkdayTimeline 
-        employeeId={currentEmployee?.id}
-        startTime={currentEmployee?.shift?.startTime}
-        endTime={currentEmployee?.shift?.endTime}
-        lateThreshold={currentEmployee?.shift ? addMinutesToTime(currentEmployee.shift.startTime, currentEmployee.shift.gracePeriodMinutes) : undefined}
-        checkInTime={attendanceToday?.checkInTime ?? null} 
-        checkOutTime={attendanceToday?.checkOutTime ?? null}
-        workedMinutes={attendanceToday?.workedMinutes ?? null}
-        penaltyMinutes={attendanceToday?.penaltyMinutes ?? null}
-        token={token} 
+    <div className="executive-dashboard-container">
+      {/* 1. Welcome Hero Banner */}
+      <DashboardHeroBanner
+        firstName={currentEmployee?.firstName || "Ritesh"}
+        lastName={currentEmployee?.lastName || "Jawale"}
+        jobTitle={currentEmployee?.jobTitle || "Technical Manager"}
       />
 
-      {/* Primary Action Row: Tasks, Personal Todo, & Celebrations */}
-      <div className="grid cols-3 dashboard-grid">
-        {/* Today's Tasks Widget (Assigned by Managers) */}
-        <AssignedTasksWidget token={token} />
+      {/* 2. World Clocks (5 clocks) */}
+      <DashboardHeroClocks />
 
-        {/* Todo List - Taking up space for visibility */}
+      {/* 3. Work Progress & Motivational Bar */}
+      <WorkProgressBar
+        attendanceToday={attendanceToday}
+      />
+
+      {/* 4. Four Stat Metric Cards */}
+      <DashboardStatCards
+        teamCount={Number(summary?.teamCount ?? 0)}
+        leaveRequestsCount={Number(summary?.pendingLeaves ?? 0)}
+        correctionRequestsCount={Number(summary?.pendingApprovals ?? 0)}
+        presenceTodayCount={Number((summary as any)?.teamPresentToday ?? 0)}
+      />
+
+      {/* 5. Lower Row: Today's Attendance & My To-Do List */}
+      <div className="dashboard-lower-grid">
+        <TeamOnLeaveWidget />
         <TodoWidget token={token} />
-
-        {/* Birthday Celebrations */}
-        <BirthdayCelebrations token={token} />
       </div>
-    </section>
+    </div>
   );
 }

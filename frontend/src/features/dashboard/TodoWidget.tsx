@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus, Trash2, Check, ListTodo, CheckCircle, Calendar, Clock } from "lucide-react";
+import { Plus, Trash2, Check, Calendar, Clock, CheckSquare, MoreVertical, ClipboardCheck } from "lucide-react";
 import { apiRequest } from "../../services/api";
 import Modal from "../../components/common/Modal";
 import toast from "react-hot-toast";
@@ -247,37 +247,54 @@ export default function TodoWidget({ token }: { token: string | null }) {
 
   return (
     <article className="card todo-widget">
-      <div className="todo-header">
-        <div className="stack" style={{ gap: '4px' }}>
-          <p className="eyebrow">Personal organizer</p>
-          <h3>My To-Do List</h3>
+      <div className="todo-widget-header">
+        <div className="todo-widget-header-left">
+          <div className="todo-icon-badge">
+            <CheckSquare size={20} strokeWidth={2.2} />
+          </div>
+          <div className="todo-titles">
+            <h3 className="todo-title">My To-Do List</h3>
+            <span className="todo-subtitle">Stay organized, stay ahead.</span>
+          </div>
         </div>
-        <div className="button-row row-actions">
-          <Link to="/todos/history" className="todo-icon-btn secondary" title="History">
-            <ListTodo size={18} />
-          </Link>
-          <button className="todo-icon-btn primary" onClick={() => {
-            setEditingTodo(null);
-            setNewTodo({ 
-              title: "", 
-              description: "", 
-              priority: "NORMAL", 
-              reminder: new Date(new Date().setMinutes(new Date().getMinutes() + 30)),
-            });
-            setModalOpen(true);
-          }} title="New Task">
-            <Plus size={20} />
+        <div className="todo-widget-header-actions">
+          <button
+            type="button"
+            className="todo-add-task-btn"
+            onClick={() => {
+              setEditingTodo(null);
+              setNewTodo({ 
+                title: "", 
+                description: "", 
+                priority: "NORMAL", 
+                reminder: new Date(new Date().setMinutes(new Date().getMinutes() + 30)),
+              });
+              setModalOpen(true);
+            }}
+          >
+            <Plus size={16} strokeWidth={2.4} />
+            <span>Add Task</span>
           </button>
+          <Link to="/todos/history" className="todo-menu-btn" title="Task History">
+            <MoreVertical size={16} />
+          </Link>
         </div>
       </div>
 
-      <div className="todo-list">
-        {activeTodos.length === 0 ? (
-          <div className="todo-empty">
-            <CheckCircle size={40} />
-            <p>You're all caught up! No active tasks.</p>
-          </div>
-        ) : (
+      <div className="todo-widget-body">
+        <div className="todo-list">
+          {activeTodos.length === 0 ? (
+            <div className="todo-empty-state">
+              <div className="todo-empty-icon-circle">
+                <ClipboardCheck size={28} strokeWidth={1.8} />
+              </div>
+              <h4 className="todo-empty-title">You're all caught up!</h4>
+              <p className="todo-empty-desc">
+                No active tasks at the moment.<br />
+                Enjoy your free time or plan ahead.
+              </p>
+            </div>
+          ) : (
           activeTodos.map(todo => (
             <div 
               key={todo.id} 
@@ -318,8 +335,8 @@ export default function TodoWidget({ token }: { token: string | null }) {
                 </button>
               </div>
             </div>
-          ))
-        )}
+          )))}
+        </div>
       </div>
 
       <Modal open={isModalOpen} onClose={() => setModalOpen(false)} title={editingTodo ? "Edit Task" : "Add New Task"}>

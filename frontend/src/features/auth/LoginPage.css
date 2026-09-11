@@ -133,6 +133,14 @@
   padding-bottom: var(--space-3);
 }
 
+.login-brand-logo {
+  height: 48px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
+
 .login-card h2 {
   font-size: clamp(1.45rem, 2.2vw, 1.9rem);
   line-height: 1.1;

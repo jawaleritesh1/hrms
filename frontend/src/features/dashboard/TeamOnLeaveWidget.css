@@ -1,65 +1,188 @@
-.team-on-leave-widget {
+/* ==========================================================================
+   Today's Attendance Widget
+   ========================================================================== */
+
+.attendance-widget-card {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  min-height: 200px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 22px 24px;
+  box-shadow: 0 4px 16px -2px rgba(28, 46, 34, 0.04);
+  border: 1px solid #efece4;
+  height: 100%;
 }
 
-.team-on-leave-empty {
-  flex: 1;
+/* Header */
+.attendance-widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.attendance-widget-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.attendance-icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #faeed7;
+  color: #b8860b;
+}
+
+.attendance-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.attendance-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a2a1f;
+  margin: 0;
+}
+
+.attendance-subtitle {
+  font-size: 13px;
+  color: #6a796e;
+  font-weight: 400;
+}
+
+.attendance-view-all-btn {
+  background: #f4f0e6;
+  color: #1a2a1f;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.attendance-view-all-btn:hover {
+  background: #e9e3d3;
+}
+
+/* Body Container */
+.attendance-widget-body {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fdfcf9;
+  border: 1px solid #eeeae1;
+  border-radius: 18px;
+  overflow: hidden;
+  min-height: 220px;
+}
+
+/* Empty State */
+.attendance-empty-state {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  color: var(--color-text-secondary);
+  padding: 32px 20px;
   text-align: center;
-  padding: var(--space-4);
-  background: var(--color-surface-secondary);
-  border-radius: var(--radius-lg);
-  border: 1px dashed var(--color-border-subtle);
+  position: relative;
+  width: 100%;
 }
 
-.team-on-leave-empty p {
+.attendance-empty-icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #e9ecef;
+  color: #3b4d40;
+  margin-bottom: 14px;
+}
+
+.attendance-empty-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a2a1f;
+  margin: 0 0 4px 0;
+}
+
+.attendance-empty-desc {
   font-size: 13px;
+  color: #6a796e;
   margin: 0;
 }
 
-.team-on-leave-list {
+.attendance-corner-leaves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 96px;
+  height: auto;
+  pointer-events: none;
+  opacity: 0.95;
+  transform: translateY(6px);
+}
+
+/* List of leaves */
+.attendance-leave-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  padding: 16px;
 }
 
-.team-on-leave-item {
+.attendance-leave-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background: var(--color-surface-secondary);
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #ffffff;
   border-radius: 12px;
-  border: 1px solid var(--color-border-subtle);
-  transition: all 0.2s ease;
+  border: 1px solid #eeeae1;
 }
 
-.team-on-leave-item:hover {
-  background: var(--color-surface-hover);
-  border-color: var(--color-accent);
+.attendance-leave-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.team-on-leave-name {
+.attendance-leave-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #1f3325;
+  color: #ffffff;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--color-text-strong);
-  font-size: 14px;
 }
 
-.team-on-leave-type {
+.attendance-leave-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a2a1f;
+}
+
+.attendance-leave-badge {
   font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-accent);
-  background: rgba(124, 58, 237, 0.08);
-  padding: 2px 8px;
-  border-radius: 4px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #fbf0d8;
+  color: #94690d;
 }

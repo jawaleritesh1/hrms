@@ -43,8 +43,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         <div className="login-showcase__backdrop" />
         <div className="login-showcase__content">
           <div className="login-showcase__header">
-            <p className="eyebrow">Intellisys HRMS</p>
-            <h1>HRMS workspace</h1>
+            <p className="eyebrow">SGS HRMS</p>
+            <h1>SGS Workspace</h1>
           </div>
           <img
             className="login-showcase__illustration"
@@ -57,7 +57,12 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
       <section className="login-panel">
         <div className="login-card">
           <div className="login-card__header">
-            <p className="eyebrow">HRMS Portal</p>
+            <img
+              src="/assets/images/Logo.png?v=2"
+              alt="Sanskar Growth Solutions"
+              className="login-brand-logo"
+            />
+            <p className="eyebrow">SGS HRMS Portal</p>
             <h2>Welcome back</h2>
             <p className="muted">Use your work credentials to continue.</p>
           </div>

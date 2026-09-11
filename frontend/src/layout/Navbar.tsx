@@ -1,15 +1,12 @@
 import "./Navbar.css";
-import { Bell, LogOut, Search, UserRound, Clock, Trophy, Star, Plus, Minus } from "lucide-react";
+import { Bell, LogOut, Search, UserRound, Clock, Trophy, Star, Plus, Minus, CalendarDays, ChevronDown } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import AttendanceQuickAction from "../components/common/AttendanceQuickAction";
-import BreakQuickAction from "../components/common/BreakQuickAction";
 import Button from "../components/common/Button";
 import type { Role } from "../types";
 import { useApp } from "../context/AppContext";
 import { usePushNotifications } from "../hooks/usePushNotifications";
-import { formatAttendanceTime } from "../utils/format";
 import Modal from "../components/common/Modal";
 import { apiRequest } from "../services/api";
 import toast from "react-hot-toast";
@@ -60,17 +57,15 @@ type NavbarProps = {
   onLogout: () => void | Promise<void>;
 };
 
-export default function Navbar({ title, navOpen, onToggleNav, token, currentEmployeeId, onLogout }: NavbarProps) {
+export default function Navbar({ title: _title, navOpen, onToggleNav, token, currentEmployeeId, onLogout }: NavbarProps) {
   const navigate = useNavigate();
-  const { summary, notifications, loading: notificationsLoading, error: notificationsError, refreshSummary, markNotificationAsRead, markAllNotificationsAsRead, serverTimeOffset, liveStatuses } = useApp();
+  const { summary, notifications, loading: notificationsLoading, error: notificationsError, refreshSummary, markNotificationAsRead, markAllNotificationsAsRead, serverTimeOffset } = useApp();
   const { subscribeUser, isSubscribing } = usePushNotifications(token);
   const [searchTerm, setSearchTerm] = useState("");
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
   const [now, setNow] = useState(() => Date.now());
-
-  const myStatus = currentEmployeeId && liveStatuses ? liveStatuses[currentEmployeeId]?.status : "OFFLINE";
 
   const [showPointsHistory, setShowPointsHistory] = useState(false);
   const [pointsHistory, setPointsHistory] = useState<any[]>([]);
@@ -99,53 +94,45 @@ export default function Navbar({ title, navOpen, onToggleNav, token, currentEmpl
     return () => clearInterval(timer);
   }, []);
 
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
-  const shiftTime = useMemo(() => {
-    const attendance = summary?.attendanceToday;
-    if (!attendance?.checkInTime) return null;
-
-    const checkIn = new Date(attendance.checkInTime);
-    const checkOut = attendance.checkOutTime ? new Date(attendance.checkOutTime) : null;
-
-    // Calculate elapsed time in minutes using server-calibrated current time
-    const currentCalibratedTime = new Date(now + serverTimeOffset);
-    const end = checkOut || currentCalibratedTime;
-    const elapsedMs = end.getTime() - checkIn.getTime();
-    const elapsedMins = Math.max(0, Math.floor(elapsedMs / 60000));
-
-    // Required shift time = 540 minutes (9h) + penalty minutes for late check-in
-    const requiredMins = 540 + (attendance.penaltyMinutes || 0);
-
-    const formatTime = (totalMins: number) => {
-      const h = Math.floor(totalMins / 60);
-      const m = totalMins % 60;
-      return `${h}h ${m}m`;
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false);
+      }
     };
-
-    // Mirror backend penalty points tier logic
-    const lateBy = attendance.lateByMinutes || 0;
-    let penaltyPoints = 0;
-    if (lateBy >= 60) {
-      const additionalHours = Math.floor((lateBy - 60) / 60);
-      penaltyPoints = Math.min(10 + additionalHours * 10, 40);
-    } else if (lateBy >= 30) {
-      penaltyPoints = 10;
-    } else if (lateBy >= 15) {
-      penaltyPoints = 5;
-    } else if (lateBy >= 10) {
-      penaltyPoints = 2;
-    } else if (lateBy >= 1) {
-      penaltyPoints = 1;
+    if (userMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
     }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [userMenuOpen]);
 
-    return {
-      checkInTime: attendance.checkInTime,
-      elapsed: formatTime(elapsedMins),
-      required: formatTime(requiredMins),
-      lateByMinutes: lateBy,
-      penaltyPoints,
-    };
-  }, [summary?.attendanceToday, now, serverTimeOffset]);
+  const formattedDate = useMemo(() => {
+    const d = new Date(now);
+    const weekday = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Kolkata", weekday: "short" }).format(d);
+    const day = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Kolkata", day: "numeric" }).format(d);
+    const month = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Kolkata", month: "short" }).format(d);
+    const year = new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Kolkata", year: "numeric" }).format(d);
+    return `${weekday}, ${day} ${month} ${year}`;
+  }, [now]);
+
+  const formattedTime = useMemo(() => {
+    return new Intl.DateTimeFormat("en-US", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    }).format(new Date(now));
+  }, [now]);
+
+  const employeeFirstName = summary?.currentEmployee?.firstName || "Ritesh";
+  const employeeLastName = summary?.currentEmployee?.lastName || "Jawale";
+  const employeeInitial = employeeFirstName.charAt(0).toUpperCase();
+  const employeeJobTitle = summary?.currentEmployee?.jobTitle || "Technical Manager";
+
+
 
   const lastScrollY = useRef(0);
   const notificationsRef = useRef<HTMLDivElement | null>(null);
@@ -203,83 +190,101 @@ export default function Navbar({ title, navOpen, onToggleNav, token, currentEmpl
     }
   }
 
+  const handleLogoutConfirm = () => {
+    const attendance = summary?.attendanceToday;
+    const checkInTimeStr = attendance?.checkInTime;
+    const isCheckedIn = Boolean(checkInTimeStr && !attendance?.checkOutTime);
+
+    let confirmMessage = "Are you sure you want to log out? Your current session will be ended.";
+    if (isCheckedIn && checkInTimeStr) {
+      const checkIn = new Date(checkInTimeStr);
+      const currentCalibratedTime = new Date(now + serverTimeOffset);
+      const elapsedMins = Math.max(0, Math.floor((currentCalibratedTime.getTime() - checkIn.getTime()) / 60000));
+      const requiredMins = 540 + (attendance?.penaltyMinutes || 0);
+
+      if (elapsedMins < requiredMins) {
+        const remaining = requiredMins - elapsedMins;
+        const remH = Math.floor(remaining / 60);
+        const remM = remaining % 60;
+        confirmMessage = `⚠️ WARNING: You have not completed your required working hours today yet!\n\nYou still have approximately ${remH}h ${remM}m remaining (including any late penalties).\n\nAre you sure you want to log out of the application?`;
+      }
+    }
+
+    if (window.confirm(confirmMessage)) {
+      void onLogout();
+    }
+  };
+
   return (
-    <div className={`topbar ${!isVisible ? "topbar--hidden" : ""}`}>
-      <div className="topbar-copy">
+    <>
+      <header className={`topbar ${!isVisible ? "topbar--hidden" : ""}`}>
+      {/* Left: Mobile Nav Button & Search Pill */}
+      <div className="topbar-left">
         <Button className="mobile-nav-toggle" variant="secondary" type="button" onClick={onToggleNav}>
           {navOpen ? "Close menu" : "Menu"}
         </Button>
-        <h1>{title}</h1>
-      </div>
-      <div className="topbar-actions">
-        <div className="topbar-attendance-action">
-          {shiftTime ? (
-            <div className="topbar-shift-timer" title="Shift time elapsed / Required shift time today">
-              {shiftTime.lateByMinutes > 0 ? (
-                <span className="topbar-shift-timer__late">{shiftTime.lateByMinutes} min late</span>
-              ) : null}
-              {shiftTime.lateByMinutes > 0 ? (
-                <span className="topbar-shift-timer__sep" />
-              ) : null}
-              <Clock size={15} className="topbar-shift-timer__icon" />
-              <span className="topbar-shift-timer__label">In</span>
-              <span className="topbar-shift-timer__checkin">{formatAttendanceTime(shiftTime.checkInTime)}</span>
-              <span className="topbar-shift-timer__bullet">•</span>
-              <span className="topbar-shift-timer__label">Shift:</span>
-              <span className="topbar-shift-timer__value topbar-shift-timer__value--elapsed">{shiftTime.elapsed}</span>
-              <span className="topbar-shift-timer__divider">/</span>
-              <span className="topbar-shift-timer__value topbar-shift-timer__value--required">{shiftTime.required}</span>
-              {shiftTime.penaltyPoints > 0 ? (
-                <span className="topbar-shift-timer__sep" />
-              ) : null}
-              {shiftTime.penaltyPoints > 0 ? (
-                <span 
-                  className="topbar-shift-timer__penalty"
-                  style={{ cursor: "pointer" }}
-                  onClick={handlePointsClick}
-                  title="Click to view points history"
-                >
-                  -{shiftTime.penaltyPoints} pts
-                </span>
-              ) : null}
-            </div>
-          ) : null}
-          <AttendanceQuickAction token={token} currentEmployeeId={currentEmployeeId} size="compact" showMeta={false} />
-          <BreakQuickAction
-            token={token}
-            isCheckedIn={Boolean(summary?.attendanceToday?.checkInTime)}
-            isCheckedOut={Boolean(summary?.attendanceToday?.checkOutTime)}
-          />
-        </div>
+
         {canSearchEmployees ? (
-          <form className="topbar-search-wrap" aria-label="Search employees by name" onSubmit={handleEmployeeSearchSubmit}>
-            <Search className="topbar-search-icon" size={16} strokeWidth={2} />
+          <form className="topbar-search-pill" onSubmit={handleEmployeeSearchSubmit}>
+            <Search className="topbar-search-icon" size={17} strokeWidth={2.2} />
             <input
-              className="topbar-search"
+              className="topbar-search-input"
               type="search"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="Search employees by name"
+              placeholder="Search employees, leaves, tasks..."
             />
           </form>
-        ) : null}
+        ) : (
+          <div className="topbar-search-pill">
+            <Search className="topbar-search-icon" size={17} strokeWidth={2.2} />
+            <input
+              className="topbar-search-input"
+              type="search"
+              placeholder="Search employees, leaves, tasks..."
+              disabled
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Right Actions: Date, Time, Bell, User Chip */}
+      <div className="topbar-actions">
+
+        {/* Date Display */}
+        <div className="topbar-date-item">
+          <CalendarDays size={18} strokeWidth={2} className="topbar-item-icon" />
+          <span className="topbar-date-text">{formattedDate}</span>
+        </div>
+
+        {/* Divider */}
+        <div className="topbar-divider" />
+
+        {/* Time Display */}
+        <div className="topbar-time-item">
+          <Clock size={18} strokeWidth={2} className="topbar-item-icon" />
+          <div className="topbar-time-info">
+            <strong className="topbar-time-val">{formattedTime}</strong>
+            <span className="topbar-time-tz">Kolkata, India</span>
+          </div>
+        </div>
+
+        {/* Notifications Bell */}
         <div className="topbar-notifications" ref={notificationsRef}>
-          <Button
+          <button
             type="button"
-            className="topbar-icon-button topbar-notification-button"
-            variant="secondary"
+            className="topbar-bell-btn"
             aria-label="Notifications"
-            onClick={() => {
-              void handleBellClick();
-            }}
+            onClick={() => void handleBellClick()}
           >
             <Bell size={18} strokeWidth={2} />
-            {totalUnreadCount > 0 ? (
-              <span className="topbar-notification-badge" aria-hidden="true">
+            {totalUnreadCount > 0 && (
+              <span className="topbar-bell-badge">
                 {totalUnreadCount > 99 ? "99+" : totalUnreadCount}
               </span>
-            ) : null}
-          </Button>
+            )}
+          </button>
+
           {notificationsOpen ? (
             <div className="topbar-notification-popover">
               <div className="topbar-notification-popover__header">
@@ -385,61 +390,64 @@ export default function Navbar({ title, navOpen, onToggleNav, token, currentEmpl
             </div>
           ) : null}
         </div>
-        <div className="topbar-profile-wrapper">
-          <Button
+
+        {/* User Profile Chip & Dropdown */}
+        <div className="topbar-user-menu-wrap" ref={userMenuRef}>
+          <button
             type="button"
-            className="topbar-icon-button"
-            variant="secondary"
-            aria-label="Open profile"
-            onClick={() => {
-              if (currentEmployeeId) {
-                navigate(`/employees/${currentEmployeeId}`);
-              }
-            }}
-            disabled={!currentEmployeeId}
+            className="topbar-user-chip"
+            onClick={() => setUserMenuOpen((prev) => !prev)}
+            aria-label="User menu"
           >
-            <UserRound size={18} strokeWidth={2} />
-          </Button>
-          {currentEmployeeId && (
-            <span 
-              className={`topbar-status-dot topbar-status-dot--${myStatus?.toLowerCase()}`} 
-              title={`Status: ${myStatus}`} 
-            />
+            <div className="topbar-user-avatar">{employeeInitial}</div>
+            <div className="topbar-user-details">
+              <span className="topbar-user-name">{employeeFirstName} {employeeLastName}</span>
+              <span className="topbar-user-role">{employeeJobTitle}</span>
+            </div>
+            <ChevronDown size={14} className={`topbar-user-chevron ${userMenuOpen ? "open" : ""}`} />
+          </button>
+
+          {userMenuOpen && (
+            <div className="topbar-user-dropdown">
+              <button
+                type="button"
+                className="topbar-user-dropdown-item"
+                onClick={() => {
+                  if (currentEmployeeId) navigate(`/employees/${currentEmployeeId}`);
+                  setUserMenuOpen(false);
+                }}
+              >
+                <UserRound size={16} />
+                <span>My Profile</span>
+              </button>
+              <button
+                type="button"
+                className="topbar-user-dropdown-item"
+                onClick={() => {
+                  handlePointsClick();
+                  setUserMenuOpen(false);
+                }}
+              >
+                <Trophy size={16} />
+                <span>Points History</span>
+              </button>
+              <div className="topbar-user-dropdown-divider" />
+              <button
+                type="button"
+                className="topbar-user-dropdown-item topbar-user-dropdown-item--logout"
+                onClick={() => {
+                  setUserMenuOpen(false);
+                  handleLogoutConfirm();
+                }}
+              >
+                <LogOut size={16} />
+                <span>Log Out</span>
+              </button>
+            </div>
           )}
         </div>
-        <Button
-          type="button"
-          className="topbar-icon-button topbar-logout-button"
-          variant="secondary"
-          aria-label="Logout"
-          onClick={() => {
-            const attendance = summary?.attendanceToday;
-            const checkInTimeStr = attendance?.checkInTime;
-            const isCheckedIn = Boolean(checkInTimeStr && !attendance?.checkOutTime);
-            
-            let confirmMessage = "Are you sure you want to log out? Your current session will be ended.";
-            if (isCheckedIn && checkInTimeStr) {
-              const checkIn = new Date(checkInTimeStr);
-              const currentCalibratedTime = new Date(now + serverTimeOffset);
-              const elapsedMins = Math.max(0, Math.floor((currentCalibratedTime.getTime() - checkIn.getTime()) / 60000));
-              const requiredMins = 540 + (attendance?.penaltyMinutes || 0);
-              
-              if (elapsedMins < requiredMins) {
-                const remaining = requiredMins - elapsedMins;
-                const remH = Math.floor(remaining / 60);
-                const remM = remaining % 60;
-                confirmMessage = `⚠️ WARNING: You have not completed your required working hours today yet!\n\nYou still have approximately ${remH}h ${remM}m remaining (including any late penalties).\n\nAre you sure you want to log out of the application?`;
-              }
-            }
-            
-            if (window.confirm(confirmMessage)) {
-              void onLogout();
-            }
-          }}
-        >
-          <LogOut size={18} strokeWidth={2} />
-        </Button>
       </div>
+    </header>
 
       {/* Points History Modal */}
       <Modal
@@ -492,6 +500,6 @@ export default function Navbar({ title, navOpen, onToggleNav, token, currentEmpl
           )}
         </div>
       </Modal>
-    </div>
+    </>
   );
 }

@@ -1,3 +1,23 @@
+.executive-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.dashboard-lower-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-lower-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .dashboard-grid {
   align-items: stretch;
   gap: var(--space-3);
@@ -184,52 +204,7 @@
   margin-top: var(--space-2);
 }
 
-.dashboard-hero-clocks .time-card {
-  background: #1e293b !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  box-shadow: none;
-  border-radius: 12px;
-}
 
-/* Glassmorphism for the side "minimal" clocks - Matching Announcement style */
-.dashboard-hero-clocks .time-card--minimal {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)) !important;
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  box-shadow: none;
-  color: white !important;
-}
-
-/* Highlight for the center "IST" clock (remains solid) */
-.dashboard-hero-clocks .time-card:not(.time-card--minimal) {
-  background: #000000 !important;
-  /* Perfectly black as requested */
-  border: 1px solid rgba(168, 85, 247, 0.6) !important;
-  /* Slightly stronger purple border for contrast */
-  box-shadow: none;
-  transform: scale(1.02);
-  z-index: 5;
-}
-
-/* Ensure text is white/light on the dark backgrounds */
-.dashboard-hero-clocks .time-card .time-card__time {
-  color: #ffffff !important;
-}
-
-.dashboard-hero-clocks .time-card .time-card__location {
-  color: rgba(255, 255, 255, 0.9) !important;
-}
-
-.dashboard-hero-clocks .time-card .time-card__offset {
-  color: rgba(255, 255, 255, 0.6) !important;
-}
-
-/* Fully transparent glass effect for minimal clock dials */
-.dashboard-hero-clocks .time-card--minimal .time-card__dial {
-  background: transparent !important;
-  box-shadow: none;
-  border-color: rgba(255, 255, 255, 0.2) !important;
-}
 
 .dashboard-hero-timezone-group .time-card__location {
   color: rgba(226, 232, 240, 0.76);

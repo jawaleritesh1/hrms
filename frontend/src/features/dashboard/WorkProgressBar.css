@@ -1,0 +1,343 @@
+/* ==========================================================================
+   Work Progress & Motivational Banner Row
+   ========================================================================== */
+
+.work-progress-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+/* Left Progress Card */
+.work-progress-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 18px 26px;
+  box-shadow: 0 4px 16px -2px rgba(28, 46, 34, 0.04);
+  border: 1px solid #efece4;
+  transition: all 0.25s ease;
+}
+
+.work-progress-top-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+}
+
+.work-progress-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #d8ede0;
+  color: #234c31;
+  flex-shrink: 0;
+}
+
+.work-progress-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 10px;
+}
+
+.work-progress-header-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.work-progress-action-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.work-progress-action-box .attendance-quick-action {
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 6px 18px;
+  min-height: 34px;
+  min-width: 100px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.work-progress-toggle-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #e5dfd2;
+  background: #faf8f5;
+  color: #243828;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.work-progress-toggle-btn:hover {
+  background: #ede6d8;
+  color: #102015;
+  transform: scale(1.05);
+}
+
+.work-progress-toggle-btn.open svg {
+  transform: rotate(180deg);
+}
+
+.work-progress-toggle-btn svg {
+  transition: transform 0.25s ease;
+}
+
+/* Expandable Panel Tray */
+.work-progress-expanded-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f0ecdf;
+  animation: slideFadeDown 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.work-progress-dropdown-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 14px;
+}
+
+.work-progress-panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #faf8f4;
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1px solid #f0eae0;
+}
+
+.work-progress-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.work-progress-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1c3022;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.work-progress-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.work-progress-stat-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #ffffff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #ece6db;
+}
+
+.stat-chip-label {
+  font-size: 11px;
+  color: #748378;
+  font-weight: 500;
+}
+
+.stat-chip-val {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1c3022;
+}
+
+.work-progress-schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.work-progress-schedule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #4b5951;
+  background: #ffffff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #ece6db;
+}
+
+.work-progress-schedule-item strong {
+  color: #1c3022;
+  font-weight: 600;
+}
+
+.work-progress-event-log-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #faf8f4;
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1px solid #f0eae0;
+}
+
+.work-progress-event-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.work-progress-log-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  background: #ffffff;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid #ece6db;
+}
+
+.log-item-time {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #1c3022;
+  min-width: 65px;
+}
+
+.log-item-badge {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.log-item-desc {
+  color: #4b5951;
+  font-weight: 500;
+  flex-grow: 1;
+}
+
+.work-progress-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.work-progress-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a2a1f;
+  margin: 0;
+}
+
+.work-progress-stats {
+  font-size: 13px;
+  color: #6c7d71;
+  font-weight: 400;
+}
+
+.work-progress-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.work-progress-track {
+  position: relative;
+  flex-grow: 1;
+  height: 14px;
+  background: #eaedf0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.work-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #274030 0%, #3e664b 100%);
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.work-progress-percentage {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a2a1f;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* Right Motivational Card */
+.work-motivational-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 18px 24px;
+  box-shadow: 0 4px 16px -2px rgba(28, 46, 34, 0.04);
+  border: 1px solid #efece4;
+}
+
+.work-motivational-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fbf0d8;
+  color: #b8860b;
+  flex-shrink: 0;
+}
+
+.work-motivational-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #3b4d40;
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .work-progress-row {
+    grid-template-columns: 1fr;
+  }
+}

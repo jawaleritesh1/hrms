@@ -4,7 +4,7 @@
   --font-primary: "Outfit", "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
 
-  --sidebar-width: 140px;
+  --sidebar-width: 235px;
 
   --text-xs: 12px;
   --text-sm: 14px;
@@ -46,7 +46,7 @@
   --color-text-muted: #475569;
 
   /* Glass Surface Concept */
-  --color-surface-page: #f8fafc;
+  --color-surface-page: #faf8f5;
   --color-surface-panel: rgba(255, 255, 255, 0.75);
   --color-surface-subtle: rgba(255, 255, 255, 0.4);
   --color-surface-secondary: rgba(241, 245, 249, 0.6);

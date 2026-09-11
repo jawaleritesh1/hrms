@@ -1,0 +1,116 @@
+/* ==========================================================================
+   Executive Dashboard Hero Banner
+   Theme: Deep Forest Green (#16271D), Champagne Gold (#D4AF37, #E5C07B)
+   ========================================================================== */
+
+.executive-hero-banner {
+  position: relative;
+  width: 100%;
+  min-height: 240px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #18281d 0%, #18281d 42%, rgba(24, 40, 29, 0.45) 65%, transparent 100%), 
+              url('/assets/images/hero-desk-art.webp') right center / auto 100% no-repeat,
+              #18281d;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -8px rgba(18, 34, 24, 0.35);
+  margin-bottom: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.executive-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 36px 44px;
+  gap: 32px;
+}
+
+/* Left Content */
+.executive-hero-left {
+  display: flex;
+  flex-direction: column;
+  max-width: 580px;
+}
+
+.executive-hero-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #cbb17b;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.executive-hero-title {
+  font-family: 'Playfair Display', Georgia, serif, system-ui;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.3px;
+}
+
+.executive-hero-name {
+  font-family: inherit;
+  color: #e5c07b;
+  font-weight: 700;
+}
+
+.executive-hero-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 24px 0;
+  font-weight: 400;
+}
+
+.executive-hero-quote-box {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  width: fit-content;
+}
+
+.executive-hero-quote-mark {
+  font-family: Georgia, serif;
+  font-size: 24px;
+  color: #e5c07b;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.executive-hero-quote-text {
+  font-size: 13px;
+  color: #f3efe6;
+  margin: 0;
+  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+}
+
+/* Right Content: Pillars */
+.executive-hero-right {
+  display: flex;
+  flex-direction: column;
+  padding-top: 6px;
+  padding-right: 12px;
+}
+
+.executive-hero-pillars {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .executive-hero-right {
+    display: none;
+  }
+  .executive-hero-content {
+    padding: 28px;
+  }
+  .executive-hero-title {
+    font-size: 28px;
+  }
+}

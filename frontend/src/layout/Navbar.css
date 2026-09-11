@@ -280,18 +280,18 @@ div.topbar-search-pill input {
 /* User Dropdown */
 .topbar-user-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 10px);
   right: 0;
   background: #ffffff;
-  border: 1px solid #efece4;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px -4px rgba(28, 46, 34, 0.12);
-  padding: 6px;
-  min-width: 175px;
-  z-index: 100;
+  border: 1px solid rgba(230, 226, 216, 0.7);
+  border-radius: 20px;
+  box-shadow: 0 16px 36px -4px rgba(28, 46, 34, 0.14), 0 2px 10px rgba(0, 0, 0, 0.04);
+  padding: 8px;
+  min-width: 190px;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   animation: dropdownFadeIn 0.15s ease-out;
 }
 
@@ -307,37 +307,52 @@ div.topbar-search-pill input {
 }
 
 .topbar-user-dropdown-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 12px;
-  border-radius: 10px;
-  background: transparent;
-  border: none;
-  font-size: 13px;
-  font-weight: 500;
-  color: #1a2a1f;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-  transition: background 0.15s ease;
+  all: unset !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 10px 14px !important;
+  border-radius: 14px !important;
+  background: transparent !important;
+  border: none !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  color: #1a2a1f !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  width: 100% !important;
+  transition: background 0.15s ease, color 0.15s ease !important;
 }
 
-.topbar-user-dropdown-item:hover {
-  background: #f4f0e6;
+.topbar-user-dropdown-item:hover,
+.topbar-user-dropdown-item.active {
+  background: #f3efe6 !important;
+  color: #1a2a1f !important;
+}
+
+.topbar-user-dropdown-item svg {
+  flex-shrink: 0 !important;
 }
 
 .topbar-user-dropdown-item--logout {
-  color: #dc2626;
+  color: #e53935 !important;
+  font-weight: 600 !important;
 }
 
 .topbar-user-dropdown-item--logout:hover {
-  background: #fef2f2;
+  background: #fef2f2 !important;
+  color: #dc2626 !important;
+}
+
+.topbar-user-dropdown-item--logout svg {
+  color: #e53935 !important;
+  stroke: #e53935 !important;
 }
 
 .topbar-user-dropdown-divider {
   height: 1px;
-  background: #eeeae1;
+  background: #f0ece2;
   margin: 4px 6px;
 }
 

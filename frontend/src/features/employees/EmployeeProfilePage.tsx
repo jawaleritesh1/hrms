@@ -1,7 +1,8 @@
 import "./EmployeeProfilePage.css";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
+import { ChevronDown, MessageSquare, Pencil, Power } from "lucide-react";
 import MessageCard from "../../components/common/MessageCard";
 import Modal from "../../components/common/Modal";
 import toast from "react-hot-toast";
@@ -86,8 +87,22 @@ export default function EmployeeProfilePage({ token, role, currentEmployeeId }: 
       : "overview";
   });
   const [employeeModalOpen, setEmployeeModalOpen] = useState(false);
+  const [moreActionsOpen, setMoreActionsOpen] = useState(false);
+  const moreActionsRef = useRef<HTMLDivElement>(null);
   const [form, setForm] = useState<EmployeeFormValues>(createInitialEmployeeForm);
-    const [submitting, setSubmitting] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (moreActionsRef.current && !moreActionsRef.current.contains(event.target as Node)) {
+        setMoreActionsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const canManageEmployee = role === "ADMIN" || role === "HR";
   const canViewPayroll = role !== "EMPLOYEE" || currentEmployeeId === employeeId;
@@ -323,11 +338,87 @@ export default function EmployeeProfilePage({ token, role, currentEmployeeId }: 
 
   return (
     <section className="stack employee-profile-page">
-      {canViewEmployeeDirectoryLink ? (
-        <Link to="/employees" className="employee-profile-back-link">
-          Back to employee directory
-        </Link>
-      ) : null}
+      {/* Breadcrumb & Actions Bar */}
+      <div className="employee-profile-topbar">
+        <nav className="employee-profile-breadcrumbs" aria-label="Breadcrumb">
+          {canViewEmployeeDirectoryLink ? (
+            <>
+              <Link to="/employees" className="employee-profile-breadcrumb-link">
+                Employees
+              </Link>
+              <span className="employee-profile-breadcrumb-sep">&gt;</span>
+              <Link to="/employees" className="employee-profile-breadcrumb-link">
+                Employee Directory
+              </Link>
+              <span className="employee-profile-breadcrumb-sep">&gt;</span>
+            </>
+          ) : null}
+          <span className="employee-profile-breadcrumb-current">
+            {employee.firstName} {employee.lastName}
+          </span>
+        </nav>
+
+        <div className="employee-profile-top-actions">
+          {canManageEmployee && (
+            <div className="employee-profile-dropdown-wrap" ref={moreActionsRef}>
+              <button
+                type="button"
+                className="employee-profile-action-btn employee-profile-action-btn--more"
+                onClick={() => setMoreActionsOpen((prev) => !prev)}
+                aria-expanded={moreActionsOpen}
+              >
+                <span>More Actions</span>
+                <ChevronDown size={14} />
+              </button>
+              {moreActionsOpen && (
+                <div className="employee-profile-dropdown-menu">
+                  <button
+                    type="button"
+                    className="employee-profile-dropdown-item"
+                    onClick={() => {
+                      setMoreActionsOpen(false);
+                      void openEmployeeModal();
+                    }}
+                  >
+                    <Pencil size={14} />
+                    <span>Edit Profile</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="employee-profile-dropdown-item"
+                    onClick={() => {
+                      setMoreActionsOpen(false);
+                      const confirmMessage = employee.isActive
+                        ? "Are you sure you want to deactivate this employee? This will disable their system access."
+                        : "Are you sure you want to activate this employee? This will restore their system access.";
+
+                      if (window.confirm(confirmMessage)) {
+                        void toggleStatus();
+                      }
+                    }}
+                  >
+                    <Power size={14} />
+                    <span>{employee.isActive ? "Deactivate Employee" : "Activate Employee"}</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {employee.user?.email && (
+            <a
+              href={`https://chat.google.com/dm/${employee.user.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="employee-profile-action-btn employee-profile-action-btn--chat"
+            >
+              <MessageSquare size={16} />
+              <span>Chat</span>
+            </a>
+          )}
+        </div>
+      </div>
+
       <EmployeeProfileHeader
         employee={employee}
         role={role}
@@ -338,10 +429,10 @@ export default function EmployeeProfilePage({ token, role, currentEmployeeId }: 
         }}
         onToggleStatus={() => {
           if (!employee) return;
-          const confirmMessage = employee.isActive 
+          const confirmMessage = employee.isActive
             ? "Are you sure you want to deactivate this employee? This will disable their system access."
             : "Are you sure you want to activate this employee? This will restore their system access.";
-          
+
           if (window.confirm(confirmMessage)) {
             void toggleStatus();
           }
@@ -349,7 +440,13 @@ export default function EmployeeProfilePage({ token, role, currentEmployeeId }: 
         onAvatarChange={reloadProfile}
       />
       <EmployeeProfileTabs activeTab={activeTab} tabs={visibleTabs} onChange={setActiveTab} />
-      {activeTab === "overview" ? <EmployeeOverviewTab employee={employee} token={token} /> : null}
+      {activeTab === "overview" ? (
+        <EmployeeOverviewTab
+          employee={employee}
+          token={token}
+          onEdit={canManageEmployee ? () => void openEmployeeModal() : undefined}
+        />
+      ) : null}
       {activeTab === "attendance" ? <EmployeeAttendanceTab employee={employee} attendance={attendance} exceptions={localExceptions} joiningDate={employee.joiningDate} leaves={leaves} selectedMonth={selectedMonth} selectedYear={selectedYear} onMonthChange={setSelectedMonth} onYearChange={setSelectedYear} employeeId={employee.id} token={token} /> : null}
       {activeTab === "leaves" ? (
         <EmployeeLeavesTab balances={balances} leaves={leaves} role={role} viewerEmployeeId={currentEmployeeId} />

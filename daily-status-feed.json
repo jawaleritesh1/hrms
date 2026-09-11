@@ -362,5 +362,12 @@
     "title": "Redesign Login Page with SGS Branding, Full-Bleed Desk Backdrop & Modern Layout",
     "status": "COMPLETED",
     "narrative": "Redesigned login page to match SGS design mockup with login-bg.png full-bleed backdrop, value propositions showcase, cursive signature flourish, aligned logo and Contact HR header, and streamlined credentials card."
+  },
+  {
+    "date": "2026-09-11",
+    "taskId": "TSK-EMP-015",
+    "title": "Redesign Employee Profile Page to Match Executive Design Mockup",
+    "status": "COMPLETED",
+    "narrative": "Overhauled the Employee Profile page to match the executive design mockup. Added breadcrumb navigation, More Actions dropdown, warm golden bronze Chat button linking to Google Chat, hero card with dark navy avatar, SSG employee code chip, bold name, ACTIVE pill, subtitle, inspirational quote, 3-column stats with dynamic Years With Us, 4-column contact strip, floating pill navigation tabs with Lucide icons, and 2x2 overview details cards grid with Edit buttons and alternating zebra-striped rows."
   }
 ]

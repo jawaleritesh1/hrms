@@ -1966,5 +1966,32 @@
     "expectedOutput": "Login page features SGS branding and logo.",
     "createdAt": "2026-09-11T11:22:00Z",
     "updatedAt": "2026-09-11T11:24:00Z"
+  },
+  {
+    "taskId": "TSK-EMP-015",
+    "moduleId": "MOD-EMP",
+    "sprint": "Sprint 4",
+    "project": "HRMS",
+    "page": "Employee Profile Page",
+    "module": "Employees",
+    "submodule": "Profile UI Redesign",
+    "title": "Redesign Employee Profile Page to Match Executive Design Mockup",
+    "description": "Overhauled the Employee Profile page with breadcrumb navigation, top action buttons (More Actions dropdown and Chat), hero profile card (midnight navy avatar, SSG employee code chip, bold name, ACTIVE pill, subtitle, quote, 3-column stats with dynamic Years With Us calculation, and 4-column contact strip), floating pill navigation tabs with Lucide icons, and 2x2 overview details cards grid with warm sand icon containers, Edit action buttons, and zebra-striped rows.",
+    "frontendWork": "Updated EmployeeProfilePage.tsx, EmployeeProfilePage.css, EmployeeProfileHeader.tsx, EmployeeProfileHeader.css, EmployeeProfileTabs.tsx, EmployeeProfileTabs.css, EmployeeOverviewTab.tsx, EmployeeOverviewTab.css, and EmployeeProfilePage.test.tsx.",
+    "backendWork": "None",
+    "databaseWork": "None",
+    "apiWork": "None",
+    "testingWork": "Verified build and ran all 5 EmployeeProfilePage unit tests.",
+    "priority": "HIGH",
+    "estimatedHours": 6,
+    "actualHours": 4,
+    "dependencies": [],
+    "riskLevel": "LOW",
+    "status": "COMPLETED",
+    "completionPercentage": 100,
+    "owner": "Fullstack Team",
+    "expectedOutput": "Employee profile page matches executive design mockup with breadcrumbs, action bar, hero card, pill tabs, and 2x2 cards grid.",
+    "createdAt": "2026-09-11T13:45:00Z",
+    "updatedAt": "2026-09-11T14:10:00Z"
   }
 ]

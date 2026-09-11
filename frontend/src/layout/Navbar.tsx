@@ -411,13 +411,17 @@ export default function Navbar({ title: _title, navOpen, onToggleNav, token, cur
             <div className="topbar-user-dropdown">
               <button
                 type="button"
-                className="topbar-user-dropdown-item"
+                className={`topbar-user-dropdown-item ${
+                  Boolean(currentEmployeeId && location.pathname.startsWith(`/employees/${currentEmployeeId}`))
+                    ? "active"
+                    : ""
+                }`}
                 onClick={() => {
                   if (currentEmployeeId) navigate(`/employees/${currentEmployeeId}`);
                   setUserMenuOpen(false);
                 }}
               >
-                <UserRound size={16} />
+                <UserRound size={17} strokeWidth={2} />
                 <span>My Profile</span>
               </button>
               <button
@@ -428,7 +432,7 @@ export default function Navbar({ title: _title, navOpen, onToggleNav, token, cur
                   setUserMenuOpen(false);
                 }}
               >
-                <Trophy size={16} />
+                <Trophy size={17} strokeWidth={2} />
                 <span>Points History</span>
               </button>
               <div className="topbar-user-dropdown-divider" />
@@ -440,7 +444,7 @@ export default function Navbar({ title: _title, navOpen, onToggleNav, token, cur
                   handleLogoutConfirm();
                 }}
               >
-                <LogOut size={16} />
+                <LogOut size={17} strokeWidth={2.2} />
                 <span>Log Out</span>
               </button>
             </div>

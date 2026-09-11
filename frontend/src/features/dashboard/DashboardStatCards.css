@@ -140,31 +140,42 @@
 }
 
 .stat-card-arrow-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  all: unset !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 34px !important;
+  min-width: 34px !important;
+  max-width: 34px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  aspect-ratio: 1 / 1 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  border: none !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.15s ease, background-color 0.15s ease !important;
 }
 
 .stat-card-arrow-btn:hover {
-  transform: scale(1.08);
+  transform: scale(1.08) !important;
 }
 
 .stat-card-arrow-btn svg {
-  display: block;
-  flex-shrink: 0;
+  display: block !important;
+  flex-shrink: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
 }
 
 .stat-card-arrow-btn--arrow-white {
   background: #ffffff !important;
   color: #1f3325 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
 }
 
 .stat-card-arrow-btn--arrow-white svg {
@@ -173,23 +184,25 @@
 }
 
 .stat-card-arrow-btn--arrow-gold {
-  background: #faeed7 !important;
-  color: #8c6416 !important;
+  background: #7a5212 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(122, 82, 18, 0.28) !important;
 }
 
 .stat-card-arrow-btn--arrow-gold svg {
-  stroke: #8c6416 !important;
-  color: #8c6416 !important;
+  stroke: #ffffff !important;
+  color: #ffffff !important;
 }
 
 .stat-card-arrow-btn--arrow-sage {
-  background: #d4ebd8 !important;
-  color: #23542f !important;
+  background: #184824 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(24, 72, 36, 0.28) !important;
 }
 
 .stat-card-arrow-btn--arrow-sage svg {
-  stroke: #23542f !important;
-  color: #23542f !important;
+  stroke: #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* Responsive */

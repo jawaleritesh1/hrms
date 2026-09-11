@@ -26,7 +26,7 @@ describe("EmployeeProfilePage", () => {
       { route: "/employees/5", path: "/employees/:id" },
     );
 
-    expect(await screen.findByText("Ava Stone")).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Ava Stone" })).toBeInTheDocument();
     expect(await screen.findByRole("tab", { name: /overview/i })).toBeInTheDocument();
     expect(screen.queryByRole("tab", { name: /payroll/i })).not.toBeInTheDocument();
     expect(await screen.findByText("Employment")).toBeInTheDocument();
@@ -76,7 +76,7 @@ describe("EmployeeProfilePage", () => {
       { route: "/employees/5", path: "/employees/:id" },
     );
 
-    expect(await screen.findByText("Ava Stone")).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Ava Stone" })).toBeInTheDocument();
 
     // Switch to Attendance tab
     const attendanceTab = await screen.findByRole("tab", { name: /attendance/i });
@@ -113,7 +113,7 @@ describe("EmployeeProfilePage", () => {
       { route: "/employees/5", path: "/employees/:id" },
     );
 
-    expect(await screen.findByText("Ava Stone")).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Ava Stone" })).toBeInTheDocument();
 
     // Switch to Attendance tab
     const attendanceTab = await screen.findByRole("tab", { name: /attendance/i });
@@ -170,7 +170,7 @@ describe("EmployeeProfilePage", () => {
       { route: "/employees/5", path: "/employees/:id" },
     );
 
-    expect(await screen.findByText("Ava Stone")).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Ava Stone" })).toBeInTheDocument();
 
     // Switch to Attendance tab
     const attendanceTab = await screen.findByRole("tab", { name: /attendance/i });
@@ -231,7 +231,7 @@ describe("EmployeeProfilePage", () => {
       { route: "/employees/5", path: "/employees/:id" },
     );
 
-    expect(await screen.findByText("Ava Stone")).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Ava Stone" })).toBeInTheDocument();
 
     // Switch to Attendance tab
     const attendanceTab = await screen.findByRole("tab", { name: /attendance/i });

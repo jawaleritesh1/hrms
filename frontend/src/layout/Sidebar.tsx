@@ -112,6 +112,12 @@ export default function Sidebar({ sessionUser, navOpen, onNavigate }: SidebarPro
 
       {/* Bottom Botanical Leaves & Slogan */}
       <div className="sidebar-footer-wrap">
+        <img
+          src="/assets/images/sidebar-leaves.png"
+          alt=""
+          className="sidebar-leaves-decor"
+        />
+
         <div className="sidebar-slogan-container">
           <div className="sidebar-slogan-content">
             <h4 className="sidebar-slogan-title">
@@ -125,12 +131,6 @@ export default function Sidebar({ sessionUser, navOpen, onNavigate }: SidebarPro
             </p>
             <div className="sidebar-slogan-gold-bar" />
           </div>
-
-          <img
-            src="/assets/images/sidebar-leaves.png"
-            alt=""
-            className="sidebar-leaves-decor"
-          />
         </div>
 
         <div className="sidebar-version-badge">v1.0.0</div>

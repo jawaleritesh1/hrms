@@ -2,7 +2,7 @@ import "./EmployeeProfileHeader.css";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { apiRequest, getFileUrl } from "../../services/api";
-import { Pencil, Power, Mail, Phone, CalendarDays, UserCheck, Star, Trash2, Upload } from "lucide-react";
+import { Pencil, Mail, Phone, CalendarDays, UserCheck, Trash2, Upload } from "lucide-react";
 import type { Employee, Role } from "../../types";
 import { formatDateLabel } from "../../utils/format";
 import AvatarUploadModal from "./AvatarUploadModal";
@@ -17,12 +17,24 @@ type EmployeeProfileHeaderProps = {
   onAvatarChange: () => void;
 };
 
-function getStatusLabel(employee: Employee) {
-  return employee.isActive ? employee.employmentStatus : "INACTIVE";
+function getYearsWithUs(joiningDate?: string | null): string {
+  if (!joiningDate) return "0.0";
+  const start = new Date(joiningDate);
+  if (isNaN(start.getTime())) return "0.0";
+  const now = new Date();
+  const diffMs = now.getTime() - start.getTime();
+  if (diffMs <= 0) return "0.1";
+  const years = diffMs / (1000 * 60 * 60 * 24 * 365.25);
+  return years.toFixed(1);
 }
 
-function getStatusClass(status: string) {
-  return `status-pill status-pill--${status.toLowerCase().replace(/_/g, "-")}`;
+function formatRole(role?: string) {
+  if (!role) return "-";
+  if (role === "ADMIN") return "Administrator";
+  if (role === "MANAGER") return "Manager";
+  if (role === "HR") return "HR Manager";
+  if (role === "EMPLOYEE") return "Employee";
+  return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
 }
 
 export default function EmployeeProfileHeader({
@@ -30,8 +42,6 @@ export default function EmployeeProfileHeader({
   role,
   currentEmployeeId,
   token,
-  onEdit,
-  onToggleStatus,
   onAvatarChange,
 }: EmployeeProfileHeaderProps) {
   const [uploading, setUploading] = useState(false);
@@ -42,8 +52,7 @@ export default function EmployeeProfileHeader({
     setAvatarError(false);
   }, [employee.profilePictureUrl, employee.id]);
 
-  const initials = `${employee.firstName.charAt(0)}${employee.lastName.charAt(0)}`.toUpperCase();
-  const canManageEmployee = role === "ADMIN" || role === "HR";
+  const initials = `${employee.firstName?.charAt(0) || ""}${employee.lastName?.charAt(0) || ""}`.toUpperCase();
   const canEditAvatar = role === "ADMIN" || role === "HR" || currentEmployeeId === employee.id;
 
   async function handleAvatarSave(file: File) {
@@ -87,128 +96,154 @@ export default function EmployeeProfileHeader({
     }
   }
 
-  const contactItems = [
-    { icon: <Mail size={14} />, label: "Email", value: employee.user?.email ?? "-" },
-    { icon: <Phone size={14} />, label: "Phone", value: employee.phone || "-" },
-    { icon: <CalendarDays size={14} />, label: "Joined", value: formatDateLabel(employee.joiningDate) },
-    { icon: <UserCheck size={14} />, label: "Manager", value: employee.manager ? `${employee.manager.firstName} ${employee.manager.lastName}` : "-" },
-  ];
+  const yearsWithUs = getYearsWithUs(employee.joiningDate);
 
   return (
-    <article className="card profile-header">
-      {/* Top section: Avatar + Identity + Actions */}
-      <div className="profile-header__top">
-        <div className="profile-header__avatar-wrap">
-          <div className="profile-header__avatar" aria-hidden="true">
-            {employee.profilePictureUrl && !avatarError ? (
-              <img
-                src={getFileUrl(employee.profilePictureUrl) || ""}
-                alt={`${employee.firstName} ${employee.lastName}`}
-                className="profile-header__avatar-image"
-                onError={() => setAvatarError(true)}
-              />
-            ) : (
-              initials
-            )}
-          </div>
-          {canEditAvatar && (
-            <div className="profile-header__avatar-btn-row">
-              <button
-                type="button"
-                className={`profile-header__avatar-btn ${employee.profilePictureUrl ? 'profile-header__avatar-btn--edit' : 'profile-header__avatar-btn--upload'}`}
-                onClick={() => setAvatarModalOpen(true)}
-                title={employee.profilePictureUrl ? "Update photo" : "Upload photo"}
-                disabled={uploading}
-              >
-                {employee.profilePictureUrl ? <Pencil size={14} /> : <Upload size={14} />}
-              </button>
-              {employee.profilePictureUrl && (
-                <button
-                  type="button"
-                  className="profile-header__avatar-btn profile-header__avatar-btn--delete"
-                  onClick={handleAvatarDelete}
-                  title="Remove photo"
-                  disabled={uploading}
-                >
-                  <Trash2 size={14} />
-                </button>
+    <article className="card profile-hero">
+      {/* Hero Body: Left Avatar & Identity, Right Stats */}
+      <div className="profile-hero__body">
+        <div className="profile-hero__left">
+          {/* Avatar Box */}
+          <div className="profile-hero__avatar-wrap">
+            <div className="profile-hero__avatar" aria-hidden="true">
+              {employee.profilePictureUrl && !avatarError ? (
+                <img
+                  src={getFileUrl(employee.profilePictureUrl) || ""}
+                  alt={`${employee.firstName} ${employee.lastName}`}
+                  className="profile-hero__avatar-image"
+                  onError={() => setAvatarError(true)}
+                />
+              ) : (
+                initials
               )}
             </div>
-          )}
-        </div>
-
-        <div className="profile-header__identity">
-          <div className="profile-header__name-row">
-            <h2>{`${employee.firstName} ${employee.lastName}`}</h2>
-            <div className="profile-header__badges">
-              <span className={getStatusClass(getStatusLabel(employee))}>{getStatusLabel(employee)}</span>
-              {employee.isOnProbation ? <span className="status-pill status-pill--pending">ON PROBATION</span> : null}
-            </div>
-          </div>
-          <div className="profile-header__meta">
-            <span className="profile-header__meta-chip mono">{employee.employeeCode}</span>
-            <span className="profile-header__meta-divider" />
-            <span className="profile-header__meta-chip">{employee.user?.role.name ?? "-"}</span>
-            <span className="profile-header__meta-divider" />
-            <span className="profile-header__meta-chip">{employee.department?.name ?? "-"}</span>
-            {employee.jobTitle && (
-              <>
-                <span className="profile-header__meta-divider" />
-                <span className="profile-header__meta-chip">{employee.jobTitle}</span>
-              </>
+            {canEditAvatar && (
+              <div className="profile-hero__avatar-btn-row">
+                <button
+                  type="button"
+                  className="profile-hero__avatar-btn"
+                  onClick={() => setAvatarModalOpen(true)}
+                  title={employee.profilePictureUrl ? "Update photo" : "Upload photo"}
+                  disabled={uploading}
+                >
+                  {employee.profilePictureUrl ? <Pencil size={13} /> : <Upload size={13} />}
+                </button>
+                {employee.profilePictureUrl && (
+                  <button
+                    type="button"
+                    className="profile-hero__avatar-btn profile-hero__avatar-btn--delete"
+                    onClick={handleAvatarDelete}
+                    title="Remove photo"
+                    disabled={uploading}
+                  >
+                    <Trash2 size={13} />
+                  </button>
+                )}
+              </div>
             )}
           </div>
-          {(employee.points != null && employee.points > 0) && (
-            <span className="profile-header__points-badge">
-              <Star size={11} fill="currentColor" />
-              {employee.points} pts
-            </span>
-          )}
-        </div>
 
-        <div className="profile-header__actions">
-          {employee.user?.email && (
-            <a
-              href={`https://chat.google.com/dm/${employee.user.email}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="profile-header__action-btn profile-header__action-btn--chat"
-            >
-              <img
-                src="/assets/images/google-chat-icon.jpg"
-                alt=""
-                className="profile-header__chat-icon"
-              />
-              <span>Chat</span>
-            </a>
-          )}
-          {canManageEmployee && (
-            <>
-              <button type="button" className="profile-header__action-btn profile-header__action-btn--primary" onClick={onEdit}>
-                <Pencil size={15} />
-                <span>Edit</span>
-              </button>
-              <button type="button" className="profile-header__action-btn profile-header__action-btn--secondary" onClick={onToggleStatus}>
-                <Power size={15} />
-                <span>{employee.isActive ? "Deactivate" : "Activate"}</span>
-              </button>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* Bottom section: Contact info chips */}
-      <div className="profile-header__contact-strip">
-        {contactItems.map((item) => (
-          <div key={item.label} className="profile-header__contact-item">
-            <div className="profile-header__contact-icon">{item.icon}</div>
-            <div className="profile-header__contact-copy">
-              <span className="profile-header__contact-label">{item.label}</span>
-              <strong>{item.value}</strong>
+          {/* Identity details */}
+          <div className="profile-hero__identity">
+            <div className="profile-hero__name-group">
+              <span className="profile-hero__code-badge">{employee.employeeCode || "EMP"}</span>
+              <div className="profile-hero__title-row">
+                <h2 className="profile-hero__name">{`${employee.firstName} ${employee.lastName}`}</h2>
+                <span className={`profile-hero__status-pill ${employee.isActive ? "active" : "inactive"}`}>
+                  <span className="profile-hero__status-text">{employee.isActive ? "ACTIVE" : "INACTIVE"}</span>
+                  <span className="profile-hero__status-dot" />
+                </span>
+              </div>
             </div>
+
+            <p className="profile-hero__subtitle">
+              <span>{employee.department?.name || "Software Development"}</span>
+              <span className="profile-hero__subtitle-sep">|</span>
+              <span>{employee.jobTitle || formatRole(employee.user?.role.name)}</span>
+            </p>
+
+            <p className="profile-hero__quote">
+              “Building better workplaces, together.”
+            </p>
           </div>
-        ))}
+        </div>
+
+        {/* Right Metric Columns */}
+        <div className="profile-hero__metrics">
+          <div className="profile-hero__metric-col">
+            <span className="profile-hero__metric-val">{yearsWithUs}</span>
+            <span className="profile-hero__metric-lbl">
+              Years<br />With Us
+            </span>
+          </div>
+          <div className="profile-hero__metric-divider" />
+          <div className="profile-hero__metric-col">
+            <span className="profile-hero__metric-val profile-hero__metric-val--text">
+              {employee.department?.name || "-"}
+            </span>
+            <span className="profile-hero__metric-lbl">Department</span>
+          </div>
+          <div className="profile-hero__metric-divider" />
+          <div className="profile-hero__metric-col">
+            <span className="profile-hero__metric-val profile-hero__metric-val--text">
+              {formatRole(employee.user?.role.name)}
+            </span>
+            <span className="profile-hero__metric-lbl">Role</span>
+          </div>
+        </div>
       </div>
+
+      {/* Bottom Contact Strip */}
+      <div className="profile-hero__contact-strip">
+        <div className="profile-hero__contact-card">
+          <div className="profile-hero__contact-icon">
+            <Mail size={16} />
+          </div>
+          <div className="profile-hero__contact-info">
+            <span className="profile-hero__contact-label">EMAIL</span>
+            <span className="profile-hero__contact-value" title={employee.user?.email || "-"}>
+              {employee.user?.email || "-"}
+            </span>
+          </div>
+        </div>
+
+        <div className="profile-hero__contact-card">
+          <div className="profile-hero__contact-icon">
+            <Phone size={16} />
+          </div>
+          <div className="profile-hero__contact-info">
+            <span className="profile-hero__contact-label">PHONE</span>
+            <span className="profile-hero__contact-value">
+              {employee.phone || "-"}
+            </span>
+          </div>
+        </div>
+
+        <div className="profile-hero__contact-card">
+          <div className="profile-hero__contact-icon">
+            <CalendarDays size={16} />
+          </div>
+          <div className="profile-hero__contact-info">
+            <span className="profile-hero__contact-label">JOINED</span>
+            <span className="profile-hero__contact-value">
+              {formatDateLabel(employee.joiningDate)}
+            </span>
+          </div>
+        </div>
+
+        <div className="profile-hero__contact-card">
+          <div className="profile-hero__contact-icon">
+            <UserCheck size={16} />
+          </div>
+          <div className="profile-hero__contact-info">
+            <span className="profile-hero__contact-label">MANAGER</span>
+            <span className="profile-hero__contact-value">
+              {employee.manager ? `${employee.manager.firstName} ${employee.manager.lastName}` : "-"}
+            </span>
+          </div>
+        </div>
+      </div>
+
       <AvatarUploadModal
         open={avatarModalOpen}
         onClose={() => setAvatarModalOpen(false)}

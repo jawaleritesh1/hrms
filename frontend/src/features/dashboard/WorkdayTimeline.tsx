@@ -55,16 +55,16 @@ const getScheduledBreakInfo = (dateInput: Date | string): ScheduledBreak => {
   const date = toZonedTime(new Date(dateInput), 'Asia/Kolkata');
   const totalMins = date.getHours() * 60 + date.getMinutes();
 
-  // Morning Tea: 9:30 AM – 12:00 PM
-  if (totalMins >= 9 * 60 + 30 && totalMins < 12 * 60) {
+  // Morning Tea: 10:30 AM – 1:00 PM
+  if (totalMins >= 10 * 60 + 30 && totalMins < 13 * 60) {
     return { isBreak: true, type: 'Morning Tea Break' };
   }
-  // Lunch: 12:00 PM – 3:00 PM
-  if (totalMins >= 12 * 60 && totalMins < 15 * 60) {
+  // Lunch: 1:00 PM – 4:00 PM
+  if (totalMins >= 13 * 60 && totalMins < 16 * 60) {
     return { isBreak: true, type: 'Lunch Break' };
   }
-  // Evening Tea: 3:00 PM – 6:00 PM
-  if (totalMins >= 15 * 60 && totalMins < 18 * 60) {
+  // Evening Tea: 4:00 PM – 7:00 PM
+  if (totalMins >= 16 * 60 && totalMins < 19 * 60) {
     return { isBreak: true, type: 'Evening Tea Break' };
   }
   // Dinner: 7:00 PM – 11:00 PM
@@ -79,9 +79,9 @@ const getScheduledBreakInfo = (dateInput: Date | string): ScheduledBreak => {
 
 const WorkdayTimeline: React.FC<WorkdayTimelineProps> = ({
   employeeId,
-  startTime = "09:00",
-  endTime = "18:00",
-  lateThreshold = "09:00",
+  startTime = "10:00",
+  endTime = "19:00",
+  lateThreshold = "10:00",
   checkInTime = null,
   checkOutTime = null,
   workedMinutes = null,

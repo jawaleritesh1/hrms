@@ -52,8 +52,8 @@ namespace HRMS_Agent
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string StartTime { get; set; } = "09:00";
-        public string EndTime { get; set; } = "18:00";
+        public string StartTime { get; set; } = "10:00";
+        public string EndTime { get; set; } = "19:00";
         public int RequiredMinutes { get; set; } = 540;
         public int GracePeriodMinutes { get; set; } = 15;
         public bool AllowMorningTea { get; set; }

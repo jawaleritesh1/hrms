@@ -285,9 +285,9 @@ router.post("/check-in", validate(attendanceSchema), async (request, response, n
     }
 
     const shift = employee.shift;
-    const shiftStartTimeStr = shift?.startTime || "09:00";
+    const shiftStartTimeStr = shift?.startTime || "10:00";
     const [startHour, startMinute] = shiftStartTimeStr.split(":").map(Number);
-    const gracePeriod = shift?.gracePeriodMinutes ?? 5;
+    const gracePeriod = shift?.gracePeriodMinutes ?? 15;
 
     const shiftStartTime = toZonedTime(checkInTime, TIMEZONE);
     shiftStartTime.setHours(startHour, startMinute, 0, 0);
@@ -584,30 +584,30 @@ router.post("/break/end", async (request, response, next) => {
     // ── Quota-Based Flexible Break Windows ───────────────────────────────────
     // Wide windows allow breaks taken slightly early or late to be classified
     // as the official break. The quota defines penalty-free minutes.
-    //   Morning Tea  : 09:30 – 12:00  (quota 15 min, min qualifying 10 min)
-    //   Lunch        : 12:00 – 15:00  (quota 40 min, min qualifying 20 min)
-    //   Evening Tea  : 15:00 – 18:00  (quota 20 min, min qualifying 10 min)
+    //   Morning Tea  : 10:30 – 13:00  (quota 15 min, min qualifying 10 min)
+    //   Lunch        : 13:00 – 16:00  (quota 40 min, min qualifying 20 min)
+    //   Evening Tea  : 16:00 – 19:00  (quota 20 min, min qualifying 10 min)
     //   Dinner       : 19:00 – 23:00  (quota 40 min, min qualifying 20 min)
     // ─────────────────────────────────────────────────────────────────────────
     const windowDefs = [
       {
         label: "Morning Tea Break",
-        windowStart: parseTimeToMinutes("09:30"),
-        windowEnd:   parseTimeToMinutes("12:00"),
+        windowStart: parseTimeToMinutes("10:30"),
+        windowEnd:   parseTimeToMinutes("13:00"),
         quota:       (shift ? shift.allowMorningTea : true) ? 15 : 0,
         minToQualify: 10,
       },
       {
         label: "Lunch",
-        windowStart: parseTimeToMinutes("12:00"),
-        windowEnd:   parseTimeToMinutes("15:00"),
+        windowStart: parseTimeToMinutes("13:00"),
+        windowEnd:   parseTimeToMinutes("16:00"),
         quota:       (isMorningShift && (shift ? shift.allowLunch : true)) ? 40 : 0,
         minToQualify: 20,
       },
       {
         label: "Evening Tea Break",
-        windowStart: parseTimeToMinutes("15:00"),
-        windowEnd:   parseTimeToMinutes("18:00"),
+        windowStart: parseTimeToMinutes("16:00"),
+        windowEnd:   parseTimeToMinutes("19:00"),
         quota:       (shift ? shift.allowEveningTea : true) ? 20 : 0,
         minToQualify: 10,
       },
@@ -775,21 +775,43 @@ router.post(
                   lte: endOfDay(attendanceDate),
                 },
                 checkInTime: { not: null },
-                status: AttendanceStatus.PRESENT,
               },
             });
 
             let updatedCount = 0;
             for (const attendance of attendancesToUpdate) {
-              const finalStatus = finalizeAttendanceStatus(
-                attendance.checkInTime,
-                attendance.checkOutTime
-              );
+              if (!attendance.checkInTime) continue;
+              if (attendance.checkOutTime) {
+                const finalStatus = finalizeAttendanceStatus(
+                  attendance.checkInTime,
+                  attendance.checkOutTime
+                );
 
-              if (finalStatus !== attendance.status) {
+                if (finalStatus !== attendance.status) {
+                  await prisma.attendance.update({
+                    where: { id: attendance.id },
+                    data: { status: finalStatus },
+                  });
+                  updatedCount++;
+                }
+              } else {
+                const sevenPm = combineAttendanceDateAndTime(attendance.attendanceDate || attendanceDate, "19:00")!;
+                const grossMins = Math.max(0, Math.floor((sevenPm.getTime() - attendance.checkInTime.getTime()) / (1000 * 60)));
+                const breakSessions = await prisma.breakSession.findMany({
+                  where: { attendanceId: attendance.id, endTime: { not: null } },
+                });
+                const totalBreakMinutes = breakSessions.reduce((sum, session) => sum + (session.durationMinutes || 0), 0);
+                const workedMinutes = Math.max(0, grossMins - totalBreakMinutes);
+                const isLateHalfDay = (attendance.lateByMinutes || 0) >= 60;
+                const finalStatus = isLateHalfDay ? AttendanceStatus.HALF_DAY : AttendanceStatus.PRESENT;
+
                 await prisma.attendance.update({
                   where: { id: attendance.id },
-                  data: { status: finalStatus },
+                  data: {
+                    checkOutTime: sevenPm,
+                    workedMinutes,
+                    status: finalStatus,
+                  },
                 });
                 updatedCount++;
               }

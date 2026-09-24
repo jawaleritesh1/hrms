@@ -1,0 +1,193 @@
+/* Mobile Dashboard Styles matching Screen 1 */
+.mobile-dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 16px 24px;
+}
+
+/* Greeting Banner */
+.mobile-greeting-card {
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 20px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.greeting-text-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-right: 12px;
+}
+
+.greeting-time-sub {
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  margin-bottom: 2px;
+}
+
+.greeting-user-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px;
+  line-height: 1.25;
+}
+
+.greeting-inspire-quote {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.greeting-art-col {
+  flex-shrink: 0;
+}
+
+/* Attendance Card */
+.mobile-attendance-card {
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.attendance-card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.attendance-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.attendance-clock-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #def7ec;
+  color: #03543f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.attendance-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.attendance-card-date {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.attendance-status-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.attendance-status-pill.not-checked-in {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.attendance-status-pill.checked-in {
+  background: #def7ec;
+  color: #03543f;
+}
+
+.attendance-status-pill.completed {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+/* Check In / Check Out Pill Button */
+.mobile-checkin-action-btn {
+  background: #0f3e28;
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(15, 62, 40, 0.25);
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.mobile-checkin-action-btn:hover {
+  background: #0a2e1d;
+  transform: translateY(-1px);
+}
+
+.mobile-checkin-action-btn.checked-in {
+  background: #c2410c;
+  box-shadow: 0 4px 12px rgba(194, 65, 12, 0.25);
+}
+
+.mobile-checkin-action-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 4-Metric Grid */
+.attendance-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 14px;
+}
+
+.metric-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: center;
+}
+
+.metric-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.metric-val {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.metric-val.status-text {
+  font-size: 11px;
+  color: #0f3e28;
+  font-weight: 600;
+}

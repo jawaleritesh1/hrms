@@ -5,7 +5,8 @@ import { startOfDay, endOfDay, getCurrentTimeInIST, TIMEZONE } from "../utils/da
 import { 
   finalizeAttendanceForDate, 
   buildApprovedLeaveWhereForAttendanceDate, 
-  finalizeAttendanceStatus
+  finalizeAttendanceStatus,
+  combineAttendanceDateAndTime
 } from "../modules/attendance/service.js";
 import { buildPayrollPreview as buildPayrollData } from "../modules/payroll/service.js";
 import { getCalendarDayStatus } from "../modules/calendar/service.js";
@@ -302,7 +303,7 @@ export function initScheduler() {
                   updatedCount++;
                 }
               } else {
-                // Checkout is missing! Let's check telemetry logs
+                // Checkout is missing! If not checked out manually, default to 7:00 PM IST
                 const lastEvent = await prisma.desktopActivityLog.findFirst({
                   where: {
                     employeeId: attendance.employeeId,
@@ -314,29 +315,24 @@ export function initScheduler() {
                   orderBy: { timestamp: "desc" },
                 });
 
-                let checkOutTime: Date;
-                let isAccidental = false;
+                const sevenPm = combineAttendanceDateAndTime(attendance.attendanceDate || attendanceDate, "19:00")!;
+                let checkOutTime = sevenPm;
 
-                if (lastEvent) {
+                if (lastEvent && lastEvent.timestamp > sevenPm) {
                   checkOutTime = lastEvent.timestamp;
-                  // Accidental if last event was active/idle/wake etc, and not LOCK/SHUTDOWN
-                  isAccidental = !["SHUTDOWN", "LOCK"].includes(lastEvent.eventType);
-                } else {
-                  // No desktop activity, fallback to check-in time plus 1 minute
-                  checkOutTime = new Date(attendance.checkInTime.getTime() + 60 * 1000);
-                  isAccidental = false; // Neglected
                 }
 
                 // Deduct break durations
-                const grossMins = Math.floor((checkOutTime.getTime() - attendance.checkInTime.getTime()) / (1000 * 60));
+                const grossMins = Math.max(0, Math.floor((checkOutTime.getTime() - attendance.checkInTime.getTime()) / (1000 * 60)));
                 const breakSessions = await prisma.breakSession.findMany({
                   where: { attendanceId: attendance.id, endTime: { not: null } },
                 });
                 const totalBreakMinutes = breakSessions.reduce((sum, session) => sum + (session.durationMinutes || 0), 0);
                 const workedMinutes = Math.max(0, grossMins - totalBreakMinutes);
 
-                // Set status based on crash classification
-                const finalStatus = isAccidental ? AttendanceStatus.PRESENT : AttendanceStatus.HALF_DAY;
+                // Preserve half-day penalty if arrival was >= 60 mins late, otherwise mark PRESENT
+                const isLateHalfDay = (attendance.lateByMinutes || 0) >= 60;
+                const finalStatus = isLateHalfDay ? AttendanceStatus.HALF_DAY : AttendanceStatus.PRESENT;
 
                 await prisma.attendance.update({
                   where: { id: attendance.id },
@@ -502,3 +498,57 @@ export function initScheduler() {
 
   console.log("[Scheduler] Background tasks initialized (Attendance, Payroll, Break Reminders, Outbox, Birthdays, Medical Proof Warnings & Sheets Queue Cleanup active).");
 }
+
+/**
+ * One-time startup repair:
+ * Fix existing attendance records where checkout was artificially set to ~1 minute
+ * after check-in time (gross minutes <= 5 and no manual todaysUpdate) by updating checkout
+ * to 7:00 PM IST on that date and recalculating worked minutes and status.
+ */
+export async function fixIrrelevantCheckouts() {
+  try {
+    const recordsToFix = await prisma.attendance.findMany({
+      where: {
+        checkInTime: { not: null },
+        checkOutTime: { not: null },
+        todaysUpdate: null,
+      },
+    });
+
+    let fixedCount = 0;
+    for (const rec of recordsToFix) {
+      if (!rec.checkInTime || !rec.checkOutTime) continue;
+      const diffMins = Math.floor((rec.checkOutTime.getTime() - rec.checkInTime.getTime()) / (1000 * 60));
+      // Artificial 1-minute fallback sets diff between 0 and 5 minutes
+      if (diffMins >= 0 && diffMins <= 5) {
+        const sevenPm = combineAttendanceDateAndTime(rec.attendanceDate, "19:00");
+        if (sevenPm) {
+          const grossMins = Math.max(0, Math.floor((sevenPm.getTime() - rec.checkInTime.getTime()) / (1000 * 60)));
+          const breakSessions = await prisma.breakSession.findMany({
+            where: { attendanceId: rec.id, endTime: { not: null } },
+          });
+          const totalBreakMinutes = breakSessions.reduce((sum, s) => sum + (s.durationMinutes || 0), 0);
+          const workedMinutes = Math.max(0, grossMins - totalBreakMinutes);
+          const isLateHalfDay = (rec.lateByMinutes || 0) >= 60;
+          const status = isLateHalfDay ? AttendanceStatus.HALF_DAY : AttendanceStatus.PRESENT;
+
+          await prisma.attendance.update({
+            where: { id: rec.id },
+            data: {
+              checkOutTime: sevenPm,
+              workedMinutes,
+              status,
+            },
+          });
+          fixedCount++;
+        }
+      }
+    }
+    if (fixedCount > 0) {
+      console.log(`[Startup Fix] Successfully repaired ${fixedCount} historical attendance records with 7:00 PM checkout.`);
+    }
+  } catch (err) {
+    console.error("[Startup Fix] Failed to fix historical attendance checkouts:", err);
+  }
+}
+

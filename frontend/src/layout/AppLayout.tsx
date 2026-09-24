@@ -9,6 +9,8 @@ import SessionWarning from "../components/SessionWarning";
 import { useBreakReminder } from "../hooks/useBreakReminder";
 import BreakReminderModal from "../components/common/BreakReminderModal";
 import { useApp } from "../context/AppContext";
+import { useIsMobile } from "../hooks/useIsMobile";
+import MobileLayout from "../features/mobile/MobileLayout";
 
 type AppLayoutProps = {
   token: string | null;
@@ -22,6 +24,7 @@ type AppLayoutProps = {
 export default function AppLayout({ token, sessionUser, onLogout, sessionWarning, onRefreshSession, onUserActivity }: AppLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
+  const isMobile = useIsMobile(768);
   const [navOpen, setNavOpen] = useState(false);
   const currentPageTitle = getPageTitle(location.pathname);
   const { showModal, startBreak, snoozeBreak, dismissBreak } = useBreakReminder(token);
@@ -30,6 +33,32 @@ export default function AppLayout({ token, sessionUser, onLogout, sessionWarning
   async function handleLogout() {
     await onLogout();
     navigate("/login");
+  }
+
+  if (isMobile) {
+    return (
+      <>
+        <MobileLayout
+          sessionUser={sessionUser}
+          token={token}
+          onLogout={handleLogout}
+        >
+          <Outlet />
+        </MobileLayout>
+        <SessionWarning
+          sessionWarning={sessionWarning}
+          onRefreshSession={onRefreshSession}
+          onLogout={handleLogout}
+          onUserActivity={onUserActivity}
+        />
+        <BreakReminderModal 
+          open={showModal} 
+          onClose={dismissBreak} 
+          onStartBreak={startBreak} 
+          onSnooze={snoozeBreak} 
+        />
+      </>
+    );
   }
 
   return (

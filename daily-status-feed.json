@@ -369,5 +369,12 @@
     "title": "Redesign Employee Profile Page to Match Executive Design Mockup",
     "status": "COMPLETED",
     "narrative": "Overhauled the Employee Profile page to match the executive design mockup. Added breadcrumb navigation, More Actions dropdown, warm golden bronze Chat button linking to Google Chat, hero card with dark navy avatar, SSG employee code chip, bold name, ACTIVE pill, subtitle, inspirational quote, 3-column stats with dynamic Years With Us, 4-column contact strip, floating pill navigation tabs with Lucide icons, and 2x2 overview details cards grid with Edit buttons and alternating zebra-striped rows."
+  },
+  {
+    "date": "2026-09-24",
+    "taskId": "TSK-ATT-028",
+    "title": "Default missing employee checkouts to 7:00 PM and repair historical records",
+    "status": "COMPLETED",
+    "narrative": "Resolved an issue where missing employee checkouts artificially received a fake 1-minute checkout timestamp (e.g. 10:39 AM for a 10:38 AM check-in) with 1m worked duration and Half Day status. Updated the daily automated finalization scheduler and manual finalize endpoint to assign 7:00 PM IST (19:00) as default checkout time for uncompleted checkouts (or preserve later desktop activity timestamps if present). Added startup repair fixIrrelevantCheckouts() to correct past affected records."
   }
 ]

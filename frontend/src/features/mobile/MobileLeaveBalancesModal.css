@@ -1,0 +1,267 @@
+/* Mobile Modal Base Overlay & Sheet */
+.mobile-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  animation: mobileFadeIn 0.2s ease-out;
+}
+
+.mobile-modal-sheet {
+  background: #ffffff;
+  width: 100%;
+  max-width: 500px;
+  max-height: 92vh;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  overflow-y: auto;
+  box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  animation: mobileSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mobileFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes mobileSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.mobile-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 10;
+}
+
+.mobile-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.mobile-modal-close {
+  background: none;
+  border: none;
+  color: #64748b;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.mobile-modal-close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.mobile-modal-body {
+  padding: 16px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Leave Wallet Hero Card */
+.leave-wallet-hero {
+  background: linear-gradient(145deg, #09192f 0%, #172a45 60%, #0d1b2a 100%);
+  border-radius: 18px;
+  padding: 20px;
+  color: #ffffff;
+  box-shadow: 0 8px 20px -4px rgba(10, 25, 47, 0.3);
+}
+
+.wallet-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.wallet-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #ffffff;
+}
+
+.wallet-desc {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #94a3b8;
+  margin: 0 0 18px;
+}
+
+.quarterly-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.quarter-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quarter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quarter-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.02em;
+}
+
+.quarter-badge {
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.quarter-months {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.quarter-taken {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin-top: 2px;
+}
+
+.quarter-status {
+  margin-top: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  width: fit-content;
+}
+
+.quarter-status.in-progress {
+  background: rgba(14, 165, 233, 0.2);
+  color: #38bdf8;
+}
+
+.quarter-status.within-quota {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* Leave Balance List */
+.leave-balance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.leave-balance-item {
+  display: flex;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #edf2f7;
+  border-radius: 14px;
+  padding: 12px 16px;
+  gap: 14px;
+}
+
+.leave-code-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.leave-code-badge.cl {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.leave-code-badge.sl {
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+
+.leave-code-badge.pl {
+  background: #f3e8ff;
+  color: #9333ea;
+}
+
+.leave-code-badge.lwp {
+  background: #fce7f3;
+  color: #db2777;
+}
+
+.leave-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.leave-days-count {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+}
+
+.leave-days-count strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.leave-days-count span {
+  font-size: 11px;
+  color: #64748b;
+}

@@ -1,0 +1,210 @@
+/* Mobile Calendar Day Detail Modal Styles */
+.calendar-day-header-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #f8fafc;
+  border: 1px solid #edf2f7;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.calendar-day-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.calendar-day-icon-wrap.working {
+  background-color: #def7ec;
+  color: #03543f;
+}
+
+.calendar-day-icon-wrap.holiday {
+  background-color: #fde8e8;
+  color: #9b1c1c;
+}
+
+.calendar-day-icon-wrap.off {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.calendar-day-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.day-type-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.day-full-date {
+  font-size: 12px;
+  color: #64748b;
+  margin: 2px 0 0;
+}
+
+.schedule-section,
+.team-attendance-section,
+.events-holiday-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.schedule-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.schedule-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px 4px 4px 4px;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.timeline-dot.green {
+  background-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.timeline-dot.blue {
+  background-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.timeline-dot.amber {
+  background-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+}
+
+.schedule-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.schedule-time {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 1px;
+}
+
+.team-attendance-card {
+  display: flex;
+  align-items: center;
+  background-color: #f8fafc;
+  border: 1px solid #edf2f7;
+  border-radius: 14px;
+  padding: 12px 16px;
+  gap: 12px;
+}
+
+.team-users-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: #def7ec;
+  color: #03543f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.team-attendance-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-attendance-text strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.team-attendance-text span {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.view-team-btn {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+}
+
+.view-team-btn:hover {
+  background-color: #f3f4f6;
+}
+
+.event-holiday-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #f8fafc;
+  border: 1px solid #edf2f7;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.event-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: #f1f5f9;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.event-text {
+  font-size: 13px;
+}
+
+.event-name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.no-events-text {
+  color: #64748b;
+}

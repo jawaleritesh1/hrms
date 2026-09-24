@@ -1,0 +1,144 @@
+/* Mobile Apply Leave Modal Styles */
+.leave-policy-tip-box {
+  background-color: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.policy-bullets {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #1e40af;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mobile-form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.mobile-form-select,
+.mobile-form-input,
+.mobile-form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #111827;
+  background-color: #ffffff;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+
+.mobile-form-select:focus,
+.mobile-form-input:focus,
+.mobile-form-textarea:focus {
+  border-color: #0f3e28;
+  box-shadow: 0 0 0 2px rgba(15, 62, 40, 0.1);
+}
+
+.mobile-tab-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #f1f5f9;
+  padding: 4px;
+  border-radius: 10px;
+  gap: 4px;
+}
+
+.toggle-btn {
+  border: none;
+  background: none;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+  background-color: #0f2c4c;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.date-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-icon {
+  position: absolute;
+  right: 12px;
+  color: #6b7280;
+  pointer-events: none;
+}
+
+.multi-date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mobile-form-textarea {
+  resize: vertical;
+  min-height: 85px;
+  font-family: inherit;
+}
+
+.word-counter {
+  font-size: 11px;
+  color: #6b7280;
+  text-align: left;
+}
+
+.word-counter.valid {
+  color: #059669;
+}
+
+.mobile-file-input {
+  font-size: 12px;
+  color: #4b5563;
+  padding: 6px 0;
+}
+
+.mobile-submit-btn {
+  width: 100%;
+  padding: 13px;
+  background-color: #0f2c4c;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 6px;
+  box-shadow: 0 4px 10px rgba(15, 44, 76, 0.2);
+  transition: background-color 0.15s ease;
+}
+
+.mobile-submit-btn:hover:not(:disabled) {
+  background-color: #0b1e33;
+}
+
+.mobile-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}

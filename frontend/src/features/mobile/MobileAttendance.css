@@ -1,0 +1,308 @@
+/* Mobile Attendance & History Styles (Screens 2 & 8) */
+.mobile-attendance-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 12px 16px 28px;
+}
+
+/* Page Header with back arrow */
+.mobile-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0 8px;
+}
+
+.mobile-back-btn {
+  background: none;
+  border: none;
+  padding: 6px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.mobile-back-btn:hover {
+  background: #f1f5f9;
+}
+
+.mobile-page-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+/* Segmented Pills */
+.segmented-pills-bar {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 9999px;
+  gap: 4px;
+}
+
+.seg-pill {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.seg-pill.active {
+  background: #0f3e28;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(15, 62, 40, 0.2);
+}
+
+/* Screen 2: Today View */
+.attendance-today-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.digital-clock-section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.digital-clock-time {
+  font-size: 38px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.digital-clock-date {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.digital-clock-location {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.attendance-headline-section {
+  text-align: center;
+}
+
+.headline-status {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px;
+}
+
+.headline-sub {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+.mobile-checkin-action-btn.large {
+  padding: 16px 28px;
+  font-size: 16px;
+  border-radius: 9999px;
+}
+
+/* 2x2 Grid Stats Card */
+.attendance-grid-card {
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 18px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.grid-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.grid-cell-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #0f3e28;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.grid-cell-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-cell-label {
+  font-size: 11px;
+  color: #64748b;
+}
+
+.grid-cell-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Screen 8: History View */
+.attendance-history-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.month-switcher {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 14px;
+}
+
+.month-nav-btn {
+  background: none;
+  border: none;
+  padding: 6px;
+  color: #475569;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.month-nav-btn:hover {
+  background: #f1f5f9;
+}
+
+.month-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.history-records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.history-item-row {
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.history-date-col {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  min-width: 85px;
+}
+
+.history-time-col {
+  font-size: 12px;
+  color: #64748b;
+  flex: 1;
+  text-align: center;
+}
+
+.history-status-col {
+  flex-shrink: 0;
+}
+
+.status-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  display: inline-block;
+}
+
+.status-pill.present {
+  background: #def7ec;
+  color: #03543f;
+}
+
+.status-pill.half-day {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.status-pill.weekly-off {
+  background: #fef2f2;
+  color: #e02424;
+}
+
+.status-pill.working-sat {
+  background: #e0f2fe;
+  color: #0284c7;
+}
+
+.status-pill.absent {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.history-loading,
+.history-empty {
+  text-align: center;
+  padding: 32px 16px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Regularization Card */
+.reg-info-card {
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reg-info-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.reg-info-card p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #64748b;
+  margin: 0;
+}

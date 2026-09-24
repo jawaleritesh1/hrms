@@ -146,7 +146,7 @@ export default function EmployeeAttendanceTab({
       const hasBreaks = shift ? shift.hasBreaks : true;
 
       if (hasBreaks) {
-        const shiftStartTimeStr = shift?.startTime || "09:00";
+        const shiftStartTimeStr = shift?.startTime || "10:00";
         const shiftStartHour = parseInt(shiftStartTimeStr.split(":")[0], 10);
         const isMorningShift = !isNaN(shiftStartHour) && shiftStartHour < 12;
 

@@ -14,8 +14,8 @@ async function main() {
     standardShift = await prisma.shift.create({
       data: {
         name: "Day Shift",
-        startTime: "09:00",
-        endTime: "18:00",
+        startTime: "10:00",
+        endTime: "19:00",
         requiredMinutes: 540,
         gracePeriodMinutes: 15
       }
